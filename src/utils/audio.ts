@@ -107,6 +107,44 @@ export function playSuccessChime(isAdvancing = false) {
 }
 
 /**
+ * Alias for playSuccessChime for celebrations
+ */
+export const playCelebrationChime = () => playSuccessChime(true);
+
+/**
+ * Playful double tap sound (as if tapping glass screen from inside)
+ */
+export function playDoubleTap() {
+  if (isSoundMuted()) return;
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+
+    [0, 0.12].forEach((offset) => {
+      const tapTime = now + offset;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(680, tapTime);
+      osc.frequency.exponentialRampToValueAtTime(320, tapTime + 0.05);
+
+      gain.gain.setValueAtTime(0.2, tapTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, tapTime + 0.05);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start(tapTime);
+      osc.stop(tapTime + 0.05);
+    });
+  } catch {
+    // fallback
+  }
+}
+
+/**
  * Play gentle error / warning sound
  */
 export function playGentleBonk() {

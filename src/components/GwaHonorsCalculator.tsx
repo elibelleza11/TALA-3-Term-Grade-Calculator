@@ -22,6 +22,7 @@ interface GwaHonorsCalculatorProps {
   onGradeLevelChange: (grade: string) => void;
   studentName: string;
   schoolName: string;
+  learningAreas?: import('../types').LearningAreaConfig[];
 }
 
 interface SubjectRowState {
@@ -29,6 +30,7 @@ interface SubjectRowState {
   name: string;
   isMapehSub?: boolean; // Music & Arts or PE & Health
   isMapehParent?: boolean;
+  isCustom?: boolean;
   term1: number | '';
   term2: number | '';
   term3: number | '';
@@ -38,13 +40,15 @@ export const GwaHonorsCalculator: React.FC<GwaHonorsCalculatorProps> = ({
   gradeLevel,
   onGradeLevelChange,
   studentName,
-  schoolName
+  schoolName,
+  learningAreas
 }) => {
   const gradeConfig = getGradeConfig(gradeLevel);
+  const activeAreas = learningAreas || gradeConfig.learningAreas;
 
-  // Initialize rows from grade config
+  // Initialize rows from active areas
   const initialRows: SubjectRowState[] = useMemo(() => {
-    return gradeConfig.learningAreas.map((area) => {
+    return activeAreas.map((area) => {
       const isSub = area.id.includes('music_arts') || area.id.includes('pe_health');
       const isParent = area.id.includes('_mapeh');
       return {
@@ -52,19 +56,20 @@ export const GwaHonorsCalculator: React.FC<GwaHonorsCalculatorProps> = ({
         name: area.name,
         isMapehSub: isSub,
         isMapehParent: isParent,
+        isCustom: area.isCustom,
         term1: 90,
         term2: 92,
         term3: 91
       };
     });
-  }, [gradeConfig]);
+  }, [activeAreas]);
 
   const [rows, setRows] = useState<SubjectRowState[]>(initialRows);
 
-  // When grade level changes, reset rows to that grade's curriculum
+  // When grade level or learningAreas changes, reset rows
   React.useEffect(() => {
     setRows(
-      gradeConfig.learningAreas.map((area) => {
+      activeAreas.map((area) => {
         const isSub = area.id.includes('music_arts') || area.id.includes('pe_health');
         const isParent = area.id.includes('_mapeh');
         return {
@@ -72,13 +77,14 @@ export const GwaHonorsCalculator: React.FC<GwaHonorsCalculatorProps> = ({
           name: area.name,
           isMapehSub: isSub,
           isMapehParent: isParent,
+          isCustom: area.isCustom,
           term1: 90,
           term2: 92,
           term3: 91
         };
       })
     );
-  }, [gradeConfig]);
+  }, [activeAreas]);
 
   // Keep MAPEH parent automatically updated if Music & Arts and PE & Health are present
   const updatedRowsWithMapeh = useMemo(() => {
@@ -192,11 +198,11 @@ export const GwaHonorsCalculator: React.FC<GwaHonorsCalculatorProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white font-display">
-                  3-Term General Weighted Average (GWA) & Academic Honors Calculator
+                  3-Term GWA &amp; Honors Calculator
                 </h2>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Evaluates Terms 1, 2, and 3 final grades against official <strong>DepEd Order No. 36, s. 2016</strong> and <strong>DO 15, s. 2026</strong> guidelines.
+                Check your term GWA and see if you qualify for academic honors!
               </p>
             </div>
           </div>
@@ -224,7 +230,7 @@ export const GwaHonorsCalculator: React.FC<GwaHonorsCalculatorProps> = ({
               className="px-3 py-1.5 text-xs font-bold bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/60 rounded-xl transition-colors border border-amber-200 dark:border-amber-700"
               title="Demonstrates what happens when a student has GWA > 90 but one subject has a grade below 80"
             >
-              Test: &lt;80 Disqualification Rule
+              Test: &lt;80 Rule
             </button>
           </div>
         </div>
@@ -234,12 +240,12 @@ export const GwaHonorsCalculator: React.FC<GwaHonorsCalculatorProps> = ({
           <ShieldCheck className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
           <div className="space-y-1">
             <p className="font-bold">
-              Official DepEd Policy on Academic Excellence Awards (DO 36, s. 2016 & DO 15, s. 2026):
+              Honors Quick Guide:
             </p>
             <p className="text-[11px] leading-relaxed text-blue-900 dark:text-blue-300">
-              <strong>1. With Highest Honors:</strong> GWA 98.00–100.00 · <strong>2. With High Honors:</strong> GWA 95.00–97.99 · <strong>3. With Honors:</strong> GWA 90.00–94.99.
+              <strong>• With Highest Honors:</strong> 98–100 · <strong>• With High Honors:</strong> 95–97.99 · <strong>• With Honors:</strong> 90–94.99
               <br />
-              <strong className="text-amber-700 dark:text-amber-300 underline underline-offset-2">Mandatory Disqualification Clause:</strong> Candidates must have <strong>no grade lower than 80</strong> in ANY learning area in ANY term. For MAPEH, both Music & Arts and PE & Health must be at least 80!
+              <strong className="text-amber-700 dark:text-amber-300">⭐ Golden Rule:</strong> To qualify, you must have <strong>no grade below 80</strong> in any subject or term!
             </p>
           </div>
         </div>

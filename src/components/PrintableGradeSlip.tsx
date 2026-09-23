@@ -54,7 +54,7 @@ export const PrintableGradeSlip: React.FC<PrintableGradeSlipProps> = ({ result, 
               OFFICIAL LEARNER'S TERM GRADE SLIP
             </h2>
             <p className="text-xs font-medium text-slate-500 mt-0.5">
-              Pursuant to DepEd Order No. 15, s. 2026 (3-Term School Calendar Assessment Guidelines)
+              DepEd 3-Term School Calendar (SY 2026–2027)
             </p>
           </div>
 
@@ -138,7 +138,7 @@ export const PrintableGradeSlip: React.FC<PrintableGradeSlipProps> = ({ result, 
 
             <div className="border border-slate-200 rounded-xl p-3 text-center">
               <span className="text-[10px] font-bold uppercase text-slate-500 block">
-                DO 15, s. 2026 Descriptor
+                Descriptor
               </span>
               <div className="mt-0.5">
                 <span className="text-base font-extrabold text-slate-900 block font-display">
@@ -173,7 +173,7 @@ export const PrintableGradeSlip: React.FC<PrintableGradeSlipProps> = ({ result, 
 
           {/* Byline / Platform stamp */}
           <div className="text-center pt-2 text-[10px] text-slate-400">
-            Generated via TALA (Term Assessment &amp; Learning Analytics) · by Eli Belleza · DepEd Order No. 15, s. 2026 Compliant
+            Generated via TALA · DepEd 3-Term Calendar (SY 2026–2027)
           </div>
         </div>
       </div>

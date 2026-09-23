@@ -29,10 +29,10 @@ export const MapehAveragingCard: React.FC<MapehAveragingCardProps> = ({ currentT
           </div>
           <div>
             <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-white font-display">
-              MAPEH Composite Grade Calculator
+              MAPEH Averager
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Pursuant to DepEd Guidelines: <strong>Music & Arts</strong> and <strong>PE & Health</strong> are computed separately, and their average forms the official MAPEH grade.
+              Average your <strong>Music &amp; Arts</strong> and <strong>PE &amp; Health</strong> grades.
             </p>
           </div>
         </div>

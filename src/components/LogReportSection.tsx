@@ -175,7 +175,7 @@ export const LogReportSection: React.FC<LogReportSectionProps> = ({
                 <th className="py-3 px-3.5">Learner &amp; Section</th>
                 <th className="py-3 px-3.5">Subject &amp; Term</th>
                 <th className="py-3 px-3.5 text-center">Transmuted Grade</th>
-                <th className="py-3 px-3.5 text-right">DO 15 Descriptor</th>
+                <th className="py-3 px-3.5 text-right">Descriptor</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-700/50 font-medium">

@@ -16,10 +16,10 @@ import {
 /**
  * Official Descriptors per DepEd Order No. 15, s. 2026:
  * Advancing (90-100)
- * Benchmarking (85-89)
- * Connecting (80-84)
- * Developing (75-79)
- * Emerging (Below 75)
+ * Benchmarking (80-89)
+ * Connecting (75-79)
+ * Developing (65-74)
+ * Emerging (60-64)
  */
 export const DESCRIPTORS_CONFIG: Record<DescriptorLevel, DescriptorInfo> = {
   Advancing: {
@@ -33,15 +33,15 @@ export const DESCRIPTORS_CONFIG: Record<DescriptorLevel, DescriptorInfo> = {
     badgeBg: '#10B981',
     textColor: '#064E3B',
     icon: '🌟',
-    title: 'Advancing (Exemplary Mastery)',
-    summary: 'Demonstrates exemplary understanding and applies knowledge independently across complex situations.',
-    studentAdvice: 'Outstanding work! Keep pursuing your curiosity, challenge yourself with advanced problem solving, and mentor your classmates!',
-    parentAdvice: 'Your child has shown exceptional proficiency and independence. Encourage continued reading, creative projects, and celebrating this wonderful academic achievement.'
+    title: 'Advancing',
+    summary: 'Consistently demonstrates skills and understanding that meet or exceed standards with independence, flexibility, and depth.',
+    studentAdvice: 'Superstar effort! Keep challenging yourself and have fun learning!',
+    parentAdvice: 'Wonderful job! Celebrate your child’s hard work, curiosity, and creativity.'
   },
   Benchmarking: {
     level: 'Benchmarking',
     code: 'B',
-    minGrade: 85,
+    minGrade: 80,
     maxGrade: 89,
     color: '#0284C7', // Azure
     bgColor: '#F0F9FF',
@@ -49,60 +49,133 @@ export const DESCRIPTORS_CONFIG: Record<DescriptorLevel, DescriptorInfo> = {
     badgeBg: '#0EA5E9',
     textColor: '#0C4A6E',
     icon: '🎯',
-    title: 'Benchmarking (Solid Proficiency)',
-    summary: 'Consistently meets and demonstrates expected standards and core learning competencies.',
-    studentAdvice: 'Great job! You have solid mastery. Reviewing a few challenging test items and staying consistent in performance tasks will lift you to Advancing!',
-    parentAdvice: 'Your child is reliably meeting the required DepEd competencies. Continue maintaining good study routines and providing positive reinforcement.'
+    title: 'Benchmarking',
+    summary: 'Demonstrates expected grade-level skills and understanding competently and independently.',
+    studentAdvice: 'Great job! A little extra review on tricky questions will lift you to Advancing!',
+    parentAdvice: 'Your child is doing well on all standard lessons. Keep up the supportive study routine!'
   },
   Connecting: {
     level: 'Connecting',
     code: 'C',
-    minGrade: 80,
-    maxGrade: 84,
+    minGrade: 75,
+    maxGrade: 79,
     color: '#D97706', // Amber
     bgColor: '#FFFBEB',
     borderColor: '#F59E0B',
     badgeBg: '#F59E0B',
     textColor: '#78350F',
     icon: '💡',
-    title: 'Connecting (Sufficient Progress)',
-    summary: 'Developing core linkages and showing sufficient understanding of fundamental ideas.',
-    studentAdvice: 'Good effort! You are connecting key concepts. Set aside 20 extra minutes for daily review and ask questions whenever a lesson feels tricky.',
-    parentAdvice: 'Your learner has acquired fundamental skills and is progressing well. Daily homework checking and guided review will help boost test scores.'
+    title: 'Connecting',
+    summary: 'Demonstrates sufficient understanding and application of grade-level standards with occasional guidance and support.',
+    studentAdvice: 'Good effort! Spending 15 minutes reviewing daily will help boost your scores!',
+    parentAdvice: 'Steady progress! Checking homework together each day helps build confidence.'
   },
   Developing: {
     level: 'Developing',
     code: 'D',
-    minGrade: 75,
-    maxGrade: 79,
+    minGrade: 65,
+    maxGrade: 74,
     color: '#EA580C', // Orange
     bgColor: '#FFF7ED',
     borderColor: '#FB923C',
     badgeBg: '#FB923C',
     textColor: '#7C2D12',
     icon: '🌱',
-    title: 'Developing (Approaching Standards)',
-    summary: 'Possesses foundational knowledge but requires occasional assistance in complex tasks.',
-    studentAdvice: 'You passed the term! You are growing step by step. Focus closely on written works and summative reviews to build steady confidence.',
-    parentAdvice: 'Your learner has met the passing threshold. Collaborative support with teachers and reviewing previous quizzes will strengthen foundational concepts.'
+    title: 'Developing',
+    summary: 'Demonstrates partial understanding and inconsistent application of skills, requires targeted support and scaffolding.',
+    studentAdvice: 'Keep practicing! Review your quizzes and seatwork to climb even higher.',
+    parentAdvice: 'Needs gentle guidance. Light, regular practice at home will strengthen the basics.'
   },
   Emerging: {
     level: 'Emerging',
     code: 'E',
     minGrade: 60,
-    maxGrade: 74,
+    maxGrade: 64,
     color: '#E11D48', // Rose
     bgColor: '#FFF1F2',
     borderColor: '#F43F5E',
     badgeBg: '#F43F5E',
     textColor: '#881337',
     icon: '🧭',
-    title: 'Emerging (Needs Targeted Intervention)',
-    summary: 'Foundational learning competencies are emerging and require remedial guidance and support.',
-    studentAdvice: 'Do not be discouraged! Every great journey begins with practice. Talk to your teacher about remedial learning activities and extra practice sheets.',
-    parentAdvice: 'Your child needs targeted intervention and encouragement. Please consult with the subject teacher for learning action plans and schedule dedicated practice at home.'
+    title: 'Emerging',
+    summary: 'Does not yet demonstrate foundational skills and understanding; requires intensive support.',
+    studentAdvice: 'Don’t worry! Practice makes progress. Ask your teacher or study buddy for tips!',
+    parentAdvice: 'Needs extra encouragement. A chat with the teacher and extra practice sheets will help them catch up.'
   }
 };
+
+export interface TransmutationRow {
+  minInitial: number;
+  maxInitial: number;
+  initialRange: string;
+  transmutedGrade: number;
+  descriptor: DescriptorLevel;
+  generalDescription: string;
+  isPassingThreshold?: boolean;
+}
+
+/**
+ * Official DepEd Transmutation Table for SY 2026-2027
+ * Passing mark: 70.00 - 71.17 Initial Grade = 75 Transmuted Grade (Connecting)
+ */
+export const TRANSMUTATION_TABLE_2026_2027: TransmutationRow[] = [
+  { minInitial: 99.50, maxInitial: 100.0, initialRange: '99.50 – 100.00', transmutedGrade: 100, descriptor: 'Advancing', generalDescription: 'Consistently demonstrates skills and understanding that meet or exceed standards with independence, flexibility, and depth.' },
+  { minInitial: 98.32, maxInitial: 99.49, initialRange: '98.32 – 99.49', transmutedGrade: 99, descriptor: 'Advancing', generalDescription: 'Consistently demonstrates skills and understanding that meet or exceed standards with independence, flexibility, and depth.' },
+  { minInitial: 97.14, maxInitial: 98.31, initialRange: '97.14 – 98.31', transmutedGrade: 98, descriptor: 'Advancing', generalDescription: 'Consistently demonstrates skills and understanding that meet or exceed standards with independence, flexibility, and depth.' },
+  { minInitial: 95.96, maxInitial: 97.13, initialRange: '95.96 – 97.13', transmutedGrade: 97, descriptor: 'Advancing', generalDescription: 'Consistently demonstrates skills and understanding that meet or exceed standards with independence, flexibility, and depth.' },
+  { minInitial: 94.78, maxInitial: 95.95, initialRange: '94.78 – 95.95', transmutedGrade: 96, descriptor: 'Advancing', generalDescription: 'Consistently demonstrates skills and understanding that meet or exceed standards with independence, flexibility, and depth.' },
+  { minInitial: 93.60, maxInitial: 94.77, initialRange: '93.60 – 94.77', transmutedGrade: 95, descriptor: 'Advancing', generalDescription: 'Consistently demonstrates skills and understanding that meet or exceed standards with independence, flexibility, and depth.' },
+  { minInitial: 92.42, maxInitial: 93.59, initialRange: '92.42 – 93.59', transmutedGrade: 94, descriptor: 'Advancing', generalDescription: 'Consistently demonstrates skills and understanding that meet or exceed standards with independence, flexibility, and depth.' },
+  { minInitial: 91.24, maxInitial: 92.41, initialRange: '91.24 – 92.41', transmutedGrade: 93, descriptor: 'Advancing', generalDescription: 'Consistently demonstrates skills and understanding that meet or exceed standards with independence, flexibility, and depth.' },
+  { minInitial: 90.06, maxInitial: 91.23, initialRange: '90.06 – 91.23', transmutedGrade: 92, descriptor: 'Advancing', generalDescription: 'Consistently demonstrates skills and understanding that meet or exceed standards with independence, flexibility, and depth.' },
+  { minInitial: 88.88, maxInitial: 90.05, initialRange: '88.88 – 90.05', transmutedGrade: 91, descriptor: 'Advancing', generalDescription: 'Consistently demonstrates skills and understanding that meet or exceed standards with independence, flexibility, and depth.' },
+  { minInitial: 87.70, maxInitial: 88.87, initialRange: '87.70 – 88.87', transmutedGrade: 90, descriptor: 'Advancing', generalDescription: 'Consistently demonstrates skills and understanding that meet or exceed standards with independence, flexibility, and depth.' },
+
+  { minInitial: 86.52, maxInitial: 87.69, initialRange: '86.52 – 87.69', transmutedGrade: 89, descriptor: 'Benchmarking', generalDescription: 'Demonstrates expected grade-level skills and understanding competently and independently.' },
+  { minInitial: 85.34, maxInitial: 86.51, initialRange: '85.34 – 86.51', transmutedGrade: 88, descriptor: 'Benchmarking', generalDescription: 'Demonstrates expected grade-level skills and understanding competently and independently.' },
+  { minInitial: 84.16, maxInitial: 85.33, initialRange: '84.16 – 85.33', transmutedGrade: 87, descriptor: 'Benchmarking', generalDescription: 'Demonstrates expected grade-level skills and understanding competently and independently.' },
+  { minInitial: 82.98, maxInitial: 84.15, initialRange: '82.98 – 84.15', transmutedGrade: 86, descriptor: 'Benchmarking', generalDescription: 'Demonstrates expected grade-level skills and understanding competently and independently.' },
+  { minInitial: 81.80, maxInitial: 82.97, initialRange: '81.80 – 82.97', transmutedGrade: 85, descriptor: 'Benchmarking', generalDescription: 'Demonstrates expected grade-level skills and understanding competently and independently.' },
+  { minInitial: 80.62, maxInitial: 81.79, initialRange: '80.62 – 81.79', transmutedGrade: 84, descriptor: 'Benchmarking', generalDescription: 'Demonstrates expected grade-level skills and understanding competently and independently.' },
+  { minInitial: 79.44, maxInitial: 80.61, initialRange: '79.44 – 80.61', transmutedGrade: 83, descriptor: 'Benchmarking', generalDescription: 'Demonstrates expected grade-level skills and understanding competently and independently.' },
+  { minInitial: 78.26, maxInitial: 79.43, initialRange: '78.26 – 79.43', transmutedGrade: 82, descriptor: 'Benchmarking', generalDescription: 'Demonstrates expected grade-level skills and understanding competently and independently.' },
+  { minInitial: 77.08, maxInitial: 78.25, initialRange: '77.08 – 78.25', transmutedGrade: 81, descriptor: 'Benchmarking', generalDescription: 'Demonstrates expected grade-level skills and understanding competently and independently.' },
+  { minInitial: 75.90, maxInitial: 77.07, initialRange: '75.90 – 77.07', transmutedGrade: 80, descriptor: 'Benchmarking', generalDescription: 'Demonstrates expected grade-level skills and understanding competently and independently.' },
+
+  { minInitial: 74.72, maxInitial: 75.89, initialRange: '74.72 – 75.89', transmutedGrade: 79, descriptor: 'Connecting', generalDescription: 'Demonstrates sufficient understanding and application of grade-level standards with occasional guidance and support.' },
+  { minInitial: 73.54, maxInitial: 74.71, initialRange: '73.54 – 74.71', transmutedGrade: 78, descriptor: 'Connecting', generalDescription: 'Demonstrates sufficient understanding and application of grade-level standards with occasional guidance and support.' },
+  { minInitial: 72.36, maxInitial: 73.53, initialRange: '72.36 – 73.53', transmutedGrade: 77, descriptor: 'Connecting', generalDescription: 'Demonstrates sufficient understanding and application of grade-level standards with occasional guidance and support.' },
+  { minInitial: 71.18, maxInitial: 72.35, initialRange: '71.18 – 72.35', transmutedGrade: 76, descriptor: 'Connecting', generalDescription: 'Demonstrates sufficient understanding and application of grade-level standards with occasional guidance and support.' },
+  { minInitial: 70.00, maxInitial: 71.17, initialRange: '70.00 – 71.17', transmutedGrade: 75, descriptor: 'Connecting', generalDescription: 'Demonstrates sufficient understanding and application of grade-level standards with occasional guidance and support.', isPassingThreshold: true },
+
+  { minInitial: 65.34, maxInitial: 69.99, initialRange: '65.34 – 69.99', transmutedGrade: 74, descriptor: 'Developing', generalDescription: 'Demonstrates partial understanding and inconsistent application of skills, requires targeted support and scaffolding.' },
+  { minInitial: 60.67, maxInitial: 65.33, initialRange: '60.67 – 65.33', transmutedGrade: 73, descriptor: 'Developing', generalDescription: 'Demonstrates partial understanding and inconsistent application of skills, requires targeted support and scaffolding.' },
+  { minInitial: 56.01, maxInitial: 60.66, initialRange: '56.01 – 60.66', transmutedGrade: 72, descriptor: 'Developing', generalDescription: 'Demonstrates partial understanding and inconsistent application of skills, requires targeted support and scaffolding.' },
+  { minInitial: 51.34, maxInitial: 56.00, initialRange: '51.34 – 56.00', transmutedGrade: 71, descriptor: 'Developing', generalDescription: 'Demonstrates partial understanding and inconsistent application of skills, requires targeted support and scaffolding.' },
+  { minInitial: 46.67, maxInitial: 51.33, initialRange: '46.67 – 51.33', transmutedGrade: 70, descriptor: 'Developing', generalDescription: 'Demonstrates partial understanding and inconsistent application of skills, requires targeted support and scaffolding.' },
+  { minInitial: 42.01, maxInitial: 46.66, initialRange: '42.01 – 46.66', transmutedGrade: 69, descriptor: 'Developing', generalDescription: 'Demonstrates partial understanding and inconsistent application of skills, requires targeted support and scaffolding.' },
+  { minInitial: 37.34, maxInitial: 42.00, initialRange: '37.34 – 42.00', transmutedGrade: 68, descriptor: 'Developing', generalDescription: 'Demonstrates partial understanding and inconsistent application of skills, requires targeted support and scaffolding.' },
+  { minInitial: 32.68, maxInitial: 37.33, initialRange: '32.68 – 37.33', transmutedGrade: 67, descriptor: 'Developing', generalDescription: 'Demonstrates partial understanding and inconsistent application of skills, requires targeted support and scaffolding.' },
+  { minInitial: 28.01, maxInitial: 32.67, initialRange: '28.01 – 32.67', transmutedGrade: 66, descriptor: 'Developing', generalDescription: 'Demonstrates partial understanding and inconsistent application of skills, requires targeted support and scaffolding.' },
+  { minInitial: 23.35, maxInitial: 28.00, initialRange: '23.35 – 28.00', transmutedGrade: 65, descriptor: 'Developing', generalDescription: 'Demonstrates partial understanding and inconsistent application of skills, requires targeted support and scaffolding.' },
+
+  { minInitial: 18.68, maxInitial: 23.34, initialRange: '18.68 – 23.34', transmutedGrade: 64, descriptor: 'Emerging', generalDescription: 'Does not yet demonstrate foundational skills and understanding; requires intensive support.' },
+  { minInitial: 14.01, maxInitial: 18.67, initialRange: '14.01 – 18.67', transmutedGrade: 63, descriptor: 'Emerging', generalDescription: 'Does not yet demonstrate foundational skills and understanding; requires intensive support.' },
+  { minInitial: 9.35, maxInitial: 14.00, initialRange: '9.35 – 14.00', transmutedGrade: 62, descriptor: 'Emerging', generalDescription: 'Does not yet demonstrate foundational skills and understanding; requires intensive support.' },
+  { minInitial: 4.68, maxInitial: 9.34, initialRange: '4.68 – 9.34', transmutedGrade: 61, descriptor: 'Emerging', generalDescription: 'Does not yet demonstrate foundational skills and understanding; requires intensive support.' },
+  { minInitial: 0.00, maxInitial: 4.67, initialRange: '0.00 – 4.67', transmutedGrade: 60, descriptor: 'Emerging', generalDescription: 'Does not yet demonstrate foundational skills and understanding; requires intensive support.' }
+];
+
+export function findTransmutationRow(initialGrade: number): TransmutationRow {
+  const g = Math.round(initialGrade * 100) / 100;
+  for (const row of TRANSMUTATION_TABLE_2026_2027) {
+    if (g >= row.minInitial && g <= row.maxInitial) {
+      return row;
+    }
+  }
+  if (g >= 99.50) return TRANSMUTATION_TABLE_2026_2027[0];
+  return TRANSMUTATION_TABLE_2026_2027[TRANSMUTATION_TABLE_2026_2027.length - 1];
+}
 
 /**
  * Official DepEd Transmutation Table (Initial Grade to Transmuted Term Grade)
@@ -110,237 +183,299 @@ export const DESCRIPTORS_CONFIG: Record<DescriptorLevel, DescriptorInfo> = {
 export function transmuteGrade(initialGrade: number): number {
   const g = Math.round(initialGrade * 100) / 100;
   
-  if (g >= 100) return 100;
-  if (g >= 98.40) return 99;
-  if (g >= 96.80) return 98;
-  if (g >= 95.20) return 97;
-  if (g >= 93.60) return 96;
-  if (g >= 92.00) return 95;
-  if (g >= 90.40) return 94;
-  if (g >= 88.80) return 93;
-  if (g >= 87.20) return 92;
-  if (g >= 85.60) return 91;
-  if (g >= 84.00) return 90;
-  if (g >= 82.40) return 89;
-  if (g >= 80.80) return 88;
-  if (g >= 79.20) return 87;
-  if (g >= 77.60) return 86;
-  if (g >= 76.00) return 85;
-  if (g >= 74.40) return 84;
-  if (g >= 72.80) return 83;
-  if (g >= 71.20) return 82;
-  if (g >= 69.60) return 81;
-  if (g >= 68.00) return 80;
-  if (g >= 66.40) return 79;
-  if (g >= 64.80) return 78;
-  if (g >= 63.20) return 77;
-  if (g >= 61.60) return 76;
-  if (g >= 60.00) return 75;
-  if (g >= 56.00) return 74;
-  if (g >= 52.00) return 73;
-  if (g >= 48.00) return 72;
-  if (g >= 44.00) return 71;
-  if (g >= 40.00) return 70;
-  if (g >= 36.00) return 69;
-  if (g >= 32.00) return 68;
-  if (g >= 28.00) return 67;
-  if (g >= 24.00) return 66;
-  if (g >= 20.00) return 65;
-  if (g >= 16.00) return 64;
-  if (g >= 12.00) return 63;
-  if (g >= 8.00) return 62;
-  if (g >= 4.00) return 61;
+  if (g >= 99.50) return 100;
+  if (g >= 98.32) return 99;
+  if (g >= 97.14) return 98;
+  if (g >= 95.96) return 97;
+  if (g >= 94.78) return 96;
+  if (g >= 93.60) return 95;
+  if (g >= 92.42) return 94;
+  if (g >= 91.24) return 93;
+  if (g >= 90.06) return 92;
+  if (g >= 88.88) return 91;
+  if (g >= 87.70) return 90;
+
+  if (g >= 86.52) return 89;
+  if (g >= 85.34) return 88;
+  if (g >= 84.16) return 87;
+  if (g >= 82.98) return 86;
+  if (g >= 81.80) return 85;
+  if (g >= 80.62) return 84;
+  if (g >= 79.44) return 83;
+  if (g >= 78.26) return 82;
+  if (g >= 77.08) return 81;
+  if (g >= 75.90) return 80;
+
+  if (g >= 74.72) return 79;
+  if (g >= 73.54) return 78;
+  if (g >= 72.36) return 77;
+  if (g >= 71.18) return 76;
+  if (g >= 70.00) return 75;
+
+  if (g >= 65.34) return 74;
+  if (g >= 60.67) return 73;
+  if (g >= 56.01) return 72;
+  if (g >= 51.34) return 71;
+  if (g >= 46.67) return 70;
+  if (g >= 42.01) return 69;
+  if (g >= 37.34) return 68;
+  if (g >= 32.68) return 67;
+  if (g >= 28.01) return 66;
+  if (g >= 23.35) return 65;
+
+  if (g >= 18.68) return 64;
+  if (g >= 14.01) return 63;
+  if (g >= 9.35) return 62;
+  if (g >= 4.68) return 61;
   return 60;
 }
 
 export function getDescriptor(transmutedGrade: number): DescriptorInfo {
   if (transmutedGrade >= 90) return DESCRIPTORS_CONFIG.Advancing;
-  if (transmutedGrade >= 85) return DESCRIPTORS_CONFIG.Benchmarking;
-  if (transmutedGrade >= 80) return DESCRIPTORS_CONFIG.Connecting;
-  if (transmutedGrade >= 75) return DESCRIPTORS_CONFIG.Developing;
+  if (transmutedGrade >= 80) return DESCRIPTORS_CONFIG.Benchmarking;
+  if (transmutedGrade >= 75) return DESCRIPTORS_CONFIG.Connecting;
+  if (transmutedGrade >= 65) return DESCRIPTORS_CONFIG.Developing;
   return DESCRIPTORS_CONFIG.Emerging;
 }
 
-// Learning Areas Configuration per Grade Level (Learning Area Aware)
-const WEIGHTS_LANG_AP_ESP = { writtenWork: 0.30, performanceTask: 0.50, termAssessment: 0.20 };
-const WEIGHTS_SCI_MATH = { writtenWork: 0.40, performanceTask: 0.40, termAssessment: 0.20 };
-const WEIGHTS_MAPEH_EPP_TLE = { writtenWork: 0.20, performanceTask: 0.60, termAssessment: 0.20 };
+// Learning Areas Component Weights (DepEd Standards & Fully Customizable)
+// Group 1: Math, Science, English, Filipino, Araling Panlipunan -> WW: 20%, PT: 50%, Exam: 30%
+export const WEIGHTS_MATH_SCI_LANG_AP = { writtenWork: 0.20, performanceTask: 0.50, termAssessment: 0.30 };
 
-// Senior High School weights
-const WEIGHTS_SHS_CORE = { writtenWork: 0.25, performanceTask: 0.50, termAssessment: 0.25 };
-const WEIGHTS_SHS_ACAD_SCI = { writtenWork: 0.35, performanceTask: 0.40, termAssessment: 0.25 };
-const WEIGHTS_SHS_TVL = { writtenWork: 0.20, performanceTask: 0.60, termAssessment: 0.20 };
+// Group 2: GMRC, EsP, EPP, TLE, Music & Arts, PE & Health, MAPEH -> WW: 20%, PT: 60%, Exam: 20%
+export const WEIGHTS_GMRC_EPP_TLE_MAPEH = { writtenWork: 0.20, performanceTask: 0.60, termAssessment: 0.20 };
+
+// Special Program Presets (SPJ, SPA, SPSTEM, SPFL, SPS, ALIVE)
+export interface SpecialProgramPreset {
+  id: string;
+  name: string;
+  shortName: string;
+  description: string;
+  weights: { writtenWork: number; performanceTask: number; termAssessment: number };
+  iconName: string;
+}
+
+export const SPECIAL_PROGRAMS_PRESETS: SpecialProgramPreset[] = [
+  {
+    id: 'spj',
+    name: 'SPJ (Special Program in Journalism)',
+    shortName: 'SPJ',
+    description: 'News writing, feature, editorial, photojournalism, and broadcasting',
+    weights: { writtenWork: 0.20, performanceTask: 0.50, termAssessment: 0.30 },
+    iconName: 'FileText'
+  },
+  {
+    id: 'spa',
+    name: 'SPA (Special Program in the Arts)',
+    shortName: 'SPA',
+    description: 'Visual arts, creative writing, music, theater, and dance',
+    weights: { writtenWork: 0.20, performanceTask: 0.60, termAssessment: 0.20 },
+    iconName: 'Palette'
+  },
+  {
+    id: 'spstem',
+    name: 'SPSTEM / STE (Special Program in STEM)',
+    shortName: 'SPSTEM',
+    description: 'Advanced science, technology, research, engineering, and mathematics',
+    weights: { writtenWork: 0.20, performanceTask: 0.50, termAssessment: 0.30 },
+    iconName: 'Binary'
+  },
+  {
+    id: 'spfl',
+    name: 'SPFL (Special Program in Foreign Language)',
+    shortName: 'SPFL',
+    description: 'Conversational foreign languages (Spanish, Japanese, Mandarin, French, German)',
+    weights: { writtenWork: 0.20, performanceTask: 0.50, termAssessment: 0.30 },
+    iconName: 'Languages'
+  },
+  {
+    id: 'sps',
+    name: 'SPS (Special Program in Sports)',
+    shortName: 'SPS',
+    description: 'Athletic disciplines, physical conditioning, tournament officiating',
+    weights: { writtenWork: 0.20, performanceTask: 0.60, termAssessment: 0.20 },
+    iconName: 'Activity'
+  },
+  {
+    id: 'alive',
+    name: 'ALIVE (Arabic Language & Islamic Values)',
+    shortName: 'ALIVE',
+    description: 'Arabic language literacy and Islamic cultural values education',
+    weights: { writtenWork: 0.20, performanceTask: 0.50, termAssessment: 0.30 },
+    iconName: 'BookOpen'
+  }
+];
 
 export const GRADE_LEVELS_DATA: GradeLevelConfig[] = [
   {
     level: 'Grade 1',
     keyStage: 'Key Stage 1 (MATATAG)',
     learningAreas: [
-      { id: 'g1_makabansa', name: 'Makabansa', shortName: 'Makabansa', iconName: 'Compass', weights: WEIGHTS_LANG_AP_ESP, description: 'Culture, citizenship, and community integration' },
-      { id: 'g1_read_lit', name: 'Reading and Literacy', shortName: 'Reading', iconName: 'BookOpen', weights: WEIGHTS_LANG_AP_ESP, description: 'Foundational reading comprehension and phonics' },
-      { id: 'g1_language', name: 'Language', shortName: 'Language', iconName: 'MessageSquare', weights: WEIGHTS_LANG_AP_ESP, description: 'Expressive and receptive language acquisition' },
-      { id: 'g1_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_SCI_MATH, description: 'Numbers, shapes, patterns, and basic arithmetic' },
-      { id: 'g1_gmrc', name: 'GMRC (Values Education)', shortName: 'GMRC', iconName: 'Heart', weights: WEIGHTS_LANG_AP_ESP, description: 'Good Manners and Right Conduct' },
+      { id: 'g1_makabansa', name: 'Makabansa', shortName: 'Makabansa', iconName: 'Compass', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Culture, citizenship, and community integration' },
+      { id: 'g1_read_lit', name: 'Reading and Literacy', shortName: 'Reading', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Foundational reading comprehension and phonics' },
+      { id: 'g1_language', name: 'Language', shortName: 'Language', iconName: 'MessageSquare', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Expressive and receptive language acquisition' },
+      { id: 'g1_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Numbers, shapes, patterns, and basic arithmetic' },
+      { id: 'g1_gmrc', name: 'GMRC (Values Education)', shortName: 'GMRC', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Good Manners and Right Conduct' },
     ]
   },
   {
     level: 'Grade 2',
     keyStage: 'Key Stage 1 (MATATAG)',
     learningAreas: [
-      { id: 'g2_makabansa', name: 'Makabansa', shortName: 'Makabansa', iconName: 'Compass', weights: WEIGHTS_LANG_AP_ESP, description: 'National identity and societal environment' },
-      { id: 'g2_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_LANG_AP_ESP, description: 'Wika, pagbasa, at talasalitaan' },
-      { id: 'g2_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_LANG_AP_ESP, description: 'Language fluency and early literature' },
-      { id: 'g2_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_SCI_MATH, description: 'Problem solving, fractions, and operations' },
-      { id: 'g2_gmrc', name: 'GMRC', shortName: 'GMRC', iconName: 'Heart', weights: WEIGHTS_LANG_AP_ESP, description: 'Character building and empathy' },
+      { id: 'g2_makabansa', name: 'Makabansa', shortName: 'Makabansa', iconName: 'Compass', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'National identity and societal environment' },
+      { id: 'g2_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Wika, pagbasa, at talasalitaan' },
+      { id: 'g2_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Language fluency and early literature' },
+      { id: 'g2_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Problem solving, fractions, and operations' },
+      { id: 'g2_gmrc', name: 'GMRC', shortName: 'GMRC', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Character building and empathy' },
     ]
   },
   {
     level: 'Grade 3',
     keyStage: 'Key Stage 1 (MATATAG)',
     learningAreas: [
-      { id: 'g3_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_SCI_MATH, description: 'Living things, physical materials, and earth' },
-      { id: 'g3_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_SCI_MATH, description: 'Multiplication, division, and measurement' },
-      { id: 'g3_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_LANG_AP_ESP, description: 'Grammar, reading comprehension, and writing' },
-      { id: 'g3_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_LANG_AP_ESP, description: 'Pagbasa at pagsulat sa sariling wika' },
-      { id: 'g3_makabansa', name: 'Makabansa (Araling Panlipunan)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_LANG_AP_ESP, description: 'Kasaysayan ng komunidad at rehiyon' },
-      { id: 'g3_gmrc', name: 'GMRC', shortName: 'GMRC', iconName: 'Heart', weights: WEIGHTS_LANG_AP_ESP, description: 'Values and responsible actions' },
+      { id: 'g3_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Living things, physical materials, and earth' },
+      { id: 'g3_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Multiplication, division, and measurement' },
+      { id: 'g3_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Grammar, reading comprehension, and writing' },
+      { id: 'g3_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Pagbasa at pagsulat sa sariling wika' },
+      { id: 'g3_makabansa', name: 'Makabansa (Araling Panlipunan)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Kasaysayan ng komunidad at rehiyon' },
+      { id: 'g3_gmrc', name: 'GMRC', shortName: 'GMRC', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Values and responsible actions' },
     ]
   },
   {
     level: 'Grade 4',
     keyStage: 'Key Stage 2 (Intermediate)',
     learningAreas: [
-      { id: 'g4_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_SCI_MATH, description: 'Scientific inquiry and natural systems' },
-      { id: 'g4_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_SCI_MATH, description: 'Decimals, geometric reasoning, and statistics' },
-      { id: 'g4_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_LANG_AP_ESP, description: 'Communicative competence and textual analysis' },
-      { id: 'g4_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_LANG_AP_ESP, description: 'Wikang Pambansa at panitikan' },
-      { id: 'g4_ap', name: 'Araling Panlipunan (AP)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_LANG_AP_ESP, description: 'Heograpiya at kultura ng Pilipinas' },
-      { id: 'g4_epp', name: 'EPP (Home Economics & Livelihood)', shortName: 'EPP', iconName: 'Briefcase', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Practical hands-on household and vocational skills' },
-      { id: 'g4_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Creative expression, traditional melodies, visual arts' },
-      { id: 'g4_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Physical fitness, games, safety, and personal wellness' },
-      { id: 'g4_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Official composite of Music & Arts and PE & Health' },
-      { id: 'g4_gmrc', name: 'GMRC / Values Education', shortName: 'GMRC', iconName: 'Heart', weights: WEIGHTS_LANG_AP_ESP, description: 'Moral discernment and active citizenship' },
+      { id: 'g4_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Scientific inquiry and natural systems' },
+      { id: 'g4_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Decimals, geometric reasoning, and statistics' },
+      { id: 'g4_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Communicative competence and textual analysis' },
+      { id: 'g4_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Wikang Pambansa at panitikan' },
+      { id: 'g4_ap', name: 'Araling Panlipunan (AP)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Heograpiya at kultura ng Pilipinas' },
+      { id: 'g4_epp', name: 'EPP (Home Economics & Livelihood)', shortName: 'EPP', iconName: 'Briefcase', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Practical hands-on household and vocational skills' },
+      { id: 'g4_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Creative expression, traditional melodies, visual arts' },
+      { id: 'g4_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Physical fitness, games, safety, and personal wellness' },
+      { id: 'g4_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Official composite of Music & Arts and PE & Health' },
+      { id: 'g4_gmrc', name: 'GMRC / Values Education', shortName: 'GMRC', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Moral discernment and active citizenship' },
     ]
   },
   {
     level: 'Grade 5',
     keyStage: 'Key Stage 2 (Intermediate)',
     learningAreas: [
-      { id: 'g5_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_SCI_MATH, description: 'Matter, organ systems, and environmental changes' },
-      { id: 'g5_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_SCI_MATH, description: 'Ratios, fractions, percentage, and plane geometry' },
-      { id: 'g5_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_LANG_AP_ESP, description: 'Informational texts and written compositions' },
-      { id: 'g5_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_LANG_AP_ESP, description: 'Wika, sanaysay, at maikling kwento' },
-      { id: 'g5_ap', name: 'Araling Panlipunan (AP)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_LANG_AP_ESP, description: 'Kolonyalismong Espanyol at pagkakakilanlan' },
-      { id: 'g5_epp', name: 'EPP', shortName: 'EPP', iconName: 'Briefcase', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Agrikultura, ICT, at kabuhayan' },
-      { id: 'g5_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Philippine ethnic musical forms and regional arts' },
-      { id: 'g5_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Target games, gymnastics, emotional health and nutrition' },
-      { id: 'g5_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Official composite of Music & Arts and PE & Health' },
-      { id: 'g5_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_LANG_AP_ESP, description: 'Pagpapahalaga sa katotohanan at kapwa' },
+      { id: 'g5_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Matter, organ systems, and environmental changes' },
+      { id: 'g5_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Ratios, fractions, percentage, and plane geometry' },
+      { id: 'g5_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Informational texts and written compositions' },
+      { id: 'g5_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Wika, sanaysay, at maikling kwento' },
+      { id: 'g5_ap', name: 'Araling Panlipunan (AP)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Kolonyalismong Espanyol at pagkakakilanlan' },
+      { id: 'g5_epp', name: 'EPP', shortName: 'EPP', iconName: 'Briefcase', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Agrikultura, ICT, at kabuhayan' },
+      { id: 'g5_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Philippine ethnic musical forms and regional arts' },
+      { id: 'g5_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Target games, gymnastics, emotional health and nutrition' },
+      { id: 'g5_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Official composite of Music & Arts and PE & Health' },
+      { id: 'g5_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Pagpapahalaga sa katotohanan at kapwa' },
     ]
   },
   {
     level: 'Grade 6',
     keyStage: 'Key Stage 2 (Intermediate)',
     learningAreas: [
-      { id: 'g6_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_SCI_MATH, description: 'Solutions, motion, energy, and planetary bodies' },
-      { id: 'g6_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_SCI_MATH, description: 'Algebraic equations, integers, and probability' },
-      { id: 'g6_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_LANG_AP_ESP, description: 'Research skills, literature, and speech delivery' },
-      { id: 'g6_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_LANG_AP_ESP, description: 'Mapanuring pag-iisip sa panitikan' },
-      { id: 'g6_ap', name: 'Araling Panlipunan (AP)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_LANG_AP_ESP, description: 'Kasarinlan at kontemporaryong hamon sa bansa' },
-      { id: 'g6_tle', name: 'TLE / EPP', shortName: 'TLE', iconName: 'Briefcase', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Industrial arts, entrepreneurship, and nutrition' },
-      { id: 'g6_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Musical forms, western art styles, and stage design' },
-      { id: 'g6_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Striking games, rhythmic routines, and community health' },
-      { id: 'g6_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Official composite of Music & Arts and PE & Health' },
-      { id: 'g6_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_LANG_AP_ESP, description: 'Pangako, responsibilidad, at katarungan' },
+      { id: 'g6_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Solutions, motion, energy, and planetary bodies' },
+      { id: 'g6_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Algebraic equations, integers, and probability' },
+      { id: 'g6_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Research skills, literature, and speech delivery' },
+      { id: 'g6_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Mapanuring pag-iisip sa panitikan' },
+      { id: 'g6_ap', name: 'Araling Panlipunan (AP)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Kasarinlan at kontemporaryong hamon sa bansa' },
+      { id: 'g6_tle', name: 'TLE / EPP', shortName: 'TLE', iconName: 'Briefcase', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Industrial arts, entrepreneurship, and nutrition' },
+      { id: 'g6_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Musical forms, western art styles, and stage design' },
+      { id: 'g6_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Striking games, rhythmic routines, and community health' },
+      { id: 'g6_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Official composite of Music & Arts and PE & Health' },
+      { id: 'g6_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Pangako, responsibilidad, at katarungan' },
     ]
   },
   {
     level: 'Grade 7',
     keyStage: 'Key Stage 3 (Junior High School)',
     learningAreas: [
-      { id: 'g7_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_SCI_MATH, description: 'Integrated Science: Scientific processes, mixtures, and cells' },
-      { id: 'g7_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_SCI_MATH, description: 'Sets, real numbers, polynomials, and linear equations' },
-      { id: 'g7_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_LANG_AP_ESP, description: 'Philippine Literature and communicative grammar' },
-      { id: 'g7_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_LANG_AP_ESP, description: 'Ibong Adarna at Panitikang Rehiyonal' },
-      { id: 'g7_ap', name: 'Araling Panlipunan (Asya)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_LANG_AP_ESP, description: 'Heograpiya, sibilisasyon, at kultura ng Asya' },
-      { id: 'g7_tle', name: 'TLE (Exploratory)', shortName: 'TLE', iconName: 'Wrench', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Cookery, Carpentry, Technical Drafting, and ICT' },
-      { id: 'g7_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Folk music of Luzon, Lowland arts, traditional textiles' },
-      { id: 'g7_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Physical fitness components, holistic health, and dual sports' },
-      { id: 'g7_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Official composite of Music & Arts and PE & Health' },
-      { id: 'g7_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_LANG_AP_ESP, description: 'Pagtuklas ng angking talento at pagpapahalaga' },
+      { id: 'g7_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Integrated Science: Scientific processes, mixtures, and cells' },
+      { id: 'g7_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Sets, real numbers, polynomials, and linear equations' },
+      { id: 'g7_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Philippine Literature and communicative grammar' },
+      { id: 'g7_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Ibong Adarna at Panitikang Rehiyonal' },
+      { id: 'g7_ap', name: 'Araling Panlipunan (Asya)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Heograpiya, sibilisasyon, at kultura ng Asya' },
+      { id: 'g7_tle', name: 'TLE (Exploratory)', shortName: 'TLE', iconName: 'Wrench', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Cookery, Carpentry, Technical Drafting, and ICT' },
+      { id: 'g7_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Folk music of Luzon, Lowland arts, traditional textiles' },
+      { id: 'g7_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Physical fitness components, holistic health, and dual sports' },
+      { id: 'g7_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Official composite of Music & Arts and PE & Health' },
+      { id: 'g7_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Pagtuklas ng angking talento at pagpapahalaga' },
     ]
   },
   {
     level: 'Grade 8',
     keyStage: 'Key Stage 3 (Junior High School)',
     learningAreas: [
-      { id: 'g8_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_SCI_MATH, description: 'Physics forces, earthquakes, digestion, and genetics' },
-      { id: 'g8_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_SCI_MATH, description: 'Factoring, rational expressions, and coordinate geometry' },
-      { id: 'g8_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_LANG_AP_ESP, description: 'Afro-Asian Literature and persuasive rhetoric' },
-      { id: 'g8_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_LANG_AP_ESP, description: 'Florante at Laura at Panitikang Tradisyunal' },
-      { id: 'g8_ap', name: 'Araling Panlipunan (Daigdig)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_LANG_AP_ESP, description: 'Kasaysayan ng Daigdig at Pandaigdigang Alyansa' },
-      { id: 'g8_tle', name: 'TLE (Specialization)', shortName: 'TLE', iconName: 'Wrench', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Applied technical skills and entrepreneurship' },
-      { id: 'g8_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Southeast Asian music, fabric design, and sculpture' },
-      { id: 'g8_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Team sports (basketball/volleyball), family health, wellness' },
-      { id: 'g8_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Official composite of Music & Arts and PE & Health' },
-      { id: 'g8_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_LANG_AP_ESP, description: 'Pakikipagkapwa at katatagan ng pamilya' },
+      { id: 'g8_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Physics forces, earthquakes, digestion, and genetics' },
+      { id: 'g8_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Factoring, rational expressions, and coordinate geometry' },
+      { id: 'g8_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Afro-Asian Literature and persuasive rhetoric' },
+      { id: 'g8_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Florante at Laura at Panitikang Tradisyunal' },
+      { id: 'g8_ap', name: 'Araling Panlipunan (Daigdig)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Kasaysayan ng Daigdig at Pandaigdigang Alyansa' },
+      { id: 'g8_tle', name: 'TLE (Specialization)', shortName: 'TLE', iconName: 'Wrench', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Applied technical skills and entrepreneurship' },
+      { id: 'g8_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Southeast Asian music, fabric design, and sculpture' },
+      { id: 'g8_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Team sports (basketball/volleyball), family health, wellness' },
+      { id: 'g8_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Official composite of Music & Arts and PE & Health' },
+      { id: 'g8_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Pakikipagkapwa at katatagan ng pamilya' },
     ]
   },
   {
     level: 'Grade 9',
     keyStage: 'Key Stage 3 (Junior High School)',
     learningAreas: [
-      { id: 'g9_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_SCI_MATH, description: 'Respiratory systems, chemical bonding, and volcanoes' },
-      { id: 'g9_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_SCI_MATH, description: 'Quadratic equations, variations, and trigonometry' },
-      { id: 'g9_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_LANG_AP_ESP, description: 'Anglo-American Literature and critical analysis' },
-      { id: 'g9_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_LANG_AP_ESP, description: 'Noli Me Tangere at Panitikang Asyano' },
-      { id: 'g9_ap', name: 'Araling Panlipunan (Ekonomiks)', shortName: 'Ekonomiks', iconName: 'TrendingUp', weights: WEIGHTS_LANG_AP_ESP, description: 'Maykro at Makroekonomiks, pambansang kaunlaran' },
-      { id: 'g9_tle', name: 'TLE', shortName: 'TLE', iconName: 'Wrench', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Vocational specialization and lab hands-on' },
-      { id: 'g9_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Medieval to Classical European music and Renaissance arts' },
-      { id: 'g9_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Festival dances, environmental health, and injury prevention' },
-      { id: 'g9_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Official composite of Music & Arts and PE & Health' },
-      { id: 'g9_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_LANG_AP_ESP, description: 'Katarungang panlipunan at kabutihang panlahat' },
+      { id: 'g9_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Respiratory systems, chemical bonding, and volcanoes' },
+      { id: 'g9_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Quadratic equations, variations, and trigonometry' },
+      { id: 'g9_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Anglo-American Literature and critical analysis' },
+      { id: 'g9_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Noli Me Tangere at Panitikang Asyano' },
+      { id: 'g9_ap', name: 'Araling Panlipunan (Ekonomiks)', shortName: 'Ekonomiks', iconName: 'TrendingUp', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Maykro at Makroekonomiks, pambansang kaunlaran' },
+      { id: 'g9_tle', name: 'TLE', shortName: 'TLE', iconName: 'Wrench', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Vocational specialization and lab hands-on' },
+      { id: 'g9_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Medieval to Classical European music and Renaissance arts' },
+      { id: 'g9_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Festival dances, environmental health, and injury prevention' },
+      { id: 'g9_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Official composite of Music & Arts and PE & Health' },
+      { id: 'g9_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Katarungang panlipunan at kabutihang panlahat' },
     ]
   },
   {
     level: 'Grade 10',
     keyStage: 'Key Stage 3 (Junior High School)',
     learningAreas: [
-      { id: 'g10_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_SCI_MATH, description: 'Plate tectonics, electromagnetism, and biomolecules' },
-      { id: 'g10_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_SCI_MATH, description: 'Sequences, polynomial functions, and circle theorems' },
-      { id: 'g10_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_LANG_AP_ESP, description: 'World Literature and argumentation' },
-      { id: 'g10_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_LANG_AP_ESP, description: 'El Filibusterismo at Pandaigdigang Panitikan' },
-      { id: 'g10_ap', name: 'Araling Panlipunan (Kontemporaryo)', shortName: 'Kontemporaryo', iconName: 'Globe', weights: WEIGHTS_LANG_AP_ESP, description: 'Mga Kontemporaryong Isyu at karapatang pantao' },
-      { id: 'g10_tle', name: 'TLE', shortName: 'TLE', iconName: 'Wrench', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'National Certificate (NC) competency preparation' },
-      { id: 'g10_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_MAPEH_EPP_TLE, description: '20th Century contemporary music, modern tech art and photography' },
-      { id: 'g10_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Street dance, hip-hop, active recreation and global health trends' },
-      { id: 'g10_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Official composite of Music & Arts and PE & Health' },
-      { id: 'g10_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_LANG_AP_ESP, description: 'Paghahanda sa Senior High School at bokasyon' },
+      { id: 'g10_science', name: 'Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Plate tectonics, electromagnetism, and biomolecules' },
+      { id: 'g10_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Sequences, polynomial functions, and circle theorems' },
+      { id: 'g10_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'World Literature and argumentation' },
+      { id: 'g10_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'El Filibusterismo at Pandaigdigang Panitikan' },
+      { id: 'g10_ap', name: 'Araling Panlipunan (Kontemporaryo)', shortName: 'Kontemporaryo', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Mga Kontemporaryong Isyu at karapatang pantao' },
+      { id: 'g10_tle', name: 'TLE', shortName: 'TLE', iconName: 'Wrench', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'National Certificate (NC) competency preparation' },
+      { id: 'g10_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: '20th Century contemporary music, modern tech art and photography' },
+      { id: 'g10_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Street dance, hip-hop, active recreation and global health trends' },
+      { id: 'g10_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Official composite of Music & Arts and PE & Health' },
+      { id: 'g10_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Paghahanda sa Senior High School at bokasyon' },
     ]
   },
   {
     level: 'Grade 11',
     keyStage: 'Key Stage 4 (Senior High School)',
     learningAreas: [
-      { id: 'g11_core_oral', name: 'Oral Communication / Komunikasyon', shortName: 'Oral Comm', iconName: 'MessageSquare', weights: WEIGHTS_SHS_CORE, description: 'Core communication principles in English & Filipino' },
-      { id: 'g11_core_genmath', name: 'General Mathematics / Statistics', shortName: 'Gen Math', iconName: 'Calculator', weights: WEIGHTS_SHS_ACAD_SCI, description: 'Functions, business math, probability distributions' },
-      { id: 'g11_core_earthsci', name: 'Earth & Life Science / Physical Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_SHS_ACAD_SCI, description: 'Geology, ecology, and chemical principles' },
-      { id: 'g11_acad_stem', name: 'STEM Specialization (Pre-Calculus / Bio / Chem)', shortName: 'STEM Spec', iconName: 'Binary', weights: WEIGHTS_SHS_ACAD_SCI, description: 'Advanced academic STEM subjects' },
-      { id: 'g11_acad_humss_abm', name: 'ABM / HUMSS Applied Subject', shortName: 'ABM / HUMSS', iconName: 'Briefcase', weights: WEIGHTS_SHS_CORE, description: 'Organization, economics, creative writing' },
-      { id: 'g11_tvl_spec', name: 'TVL Specialization Course', shortName: 'TVL Spec', iconName: 'Wrench', weights: WEIGHTS_SHS_TVL, description: 'Hands-on practical industry competency training' },
-      { id: 'g11_pe_health', name: 'Physical Education and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Physical wellness, dance, and recreational fitness' },
+      { id: 'g11_core_oral', name: 'Oral Communication / Komunikasyon', shortName: 'Oral Comm', iconName: 'MessageSquare', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Core communication principles in English & Filipino' },
+      { id: 'g11_core_genmath', name: 'General Mathematics / Statistics', shortName: 'Gen Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Functions, business math, probability distributions' },
+      { id: 'g11_core_earthsci', name: 'Earth & Life Science / Physical Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Geology, ecology, and chemical principles' },
+      { id: 'g11_acad_stem', name: 'STEM Specialization (Pre-Calculus / Bio / Chem)', shortName: 'STEM Spec', iconName: 'Binary', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Advanced academic STEM subjects' },
+      { id: 'g11_acad_humss_abm', name: 'ABM / HUMSS Applied Subject', shortName: 'ABM / HUMSS', iconName: 'Briefcase', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Organization, economics, creative writing' },
+      { id: 'g11_tvl_spec', name: 'TVL Specialization Course', shortName: 'TVL Spec', iconName: 'Wrench', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Hands-on practical industry competency training' },
+      { id: 'g11_pe_health', name: 'Physical Education and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Physical wellness, dance, and recreational fitness' },
     ]
   },
   {
     level: 'Grade 12',
     keyStage: 'Key Stage 4 (Senior High School)',
     learningAreas: [
-      { id: 'g12_practical_res', name: 'Practical Research 1 & 2', shortName: 'Research', iconName: 'FileText', weights: WEIGHTS_SHS_CORE, description: 'Qualitative and quantitative empirical research' },
-      { id: 'g12_core_contemp', name: 'Contemporary Philippine Arts', shortName: 'Arts', iconName: 'Palette', weights: WEIGHTS_SHS_CORE, description: 'Modern regional art practices and techniques' },
-      { id: 'g12_acad_calculus', name: 'Basic Calculus / Physics / Chemistry', shortName: 'Calculus/Phys', iconName: 'Cpu', weights: WEIGHTS_SHS_ACAD_SCI, description: 'Limits, derivatives, Newtonian mechanics' },
-      { id: 'g12_acad_applied', name: 'Inquiries, Investigations & Immersion', shortName: '3Is / Immersion', iconName: 'Compass', weights: WEIGHTS_SHS_CORE, description: 'Culminating research synthesis and application' },
-      { id: 'g12_tvl_immersion', name: 'TVL Work Immersion / Culminating', shortName: 'TVL Immersion', iconName: 'Wrench', weights: WEIGHTS_SHS_TVL, description: 'Industry on-the-job apprenticeship and assessment' },
-      { id: 'g12_pe_health', name: 'Physical Education and Health 4', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_MAPEH_EPP_TLE, description: 'Lifelong fitness and leadership in sports' },
+      { id: 'g12_practical_res', name: 'Practical Research 1 & 2', shortName: 'Research', iconName: 'FileText', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Qualitative and quantitative empirical research' },
+      { id: 'g12_core_contemp', name: 'Contemporary Philippine Arts', shortName: 'Arts', iconName: 'Palette', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Modern regional art practices and techniques' },
+      { id: 'g12_acad_calculus', name: 'Basic Calculus / Physics / Chemistry', shortName: 'Calculus/Phys', iconName: 'Cpu', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Limits, derivatives, Newtonian mechanics' },
+      { id: 'g12_acad_applied', name: 'Inquiries, Investigations & Immersion', shortName: '3Is / Immersion', iconName: 'Compass', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Culminating research synthesis and application' },
+      { id: 'g12_tvl_immersion', name: 'TVL Work Immersion / Culminating', shortName: 'TVL Immersion', iconName: 'Wrench', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Industry on-the-job apprenticeship and assessment' },
+      { id: 'g12_pe_health', name: 'Physical Education and Health 4', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Lifelong fitness and leadership in sports' },
     ]
   }
 ];
@@ -373,9 +508,13 @@ export function calculateTermGrade(
   st2Score: number | '',
   st2Total: number | '',
   teScore: number | '',
-  teTotal: number | ''
+  teTotal: number | '',
+  customWeights?: { writtenWork: number; performanceTask: number; termAssessment: number },
+  customLearningAreaName?: string
 ): CalculationResult {
-  const area = getLearningArea(gradeLevel, learningAreaId);
+  const defaultArea = getLearningArea(gradeLevel, learningAreaId);
+  const weights = customWeights || defaultArea.weights;
+  const learningAreaName = customLearningAreaName || defaultArea.name;
   
   // 1. Written Works total
   let wwRaw = 0;
@@ -387,7 +526,7 @@ export function calculateTermGrade(
     wwHigh += h;
   });
   const wwPct = wwHigh > 0 ? (wwRaw / wwHigh) * 100 : 0;
-  const wwWeighted = wwPct * area.weights.writtenWork;
+  const wwWeighted = wwPct * weights.writtenWork;
 
   // 2. Performance Tasks total
   let ptRaw = 0;
@@ -399,7 +538,7 @@ export function calculateTermGrade(
     ptHigh += h;
   });
   const ptPct = ptHigh > 0 ? (ptRaw / ptHigh) * 100 : 0;
-  const ptWeighted = ptPct * area.weights.performanceTask;
+  const ptWeighted = ptPct * weights.performanceTask;
 
   // 3. Summative Assessments (ST1, ST2, TE)
   const st1_s = typeof st1Score === 'number' ? Math.max(0, st1Score) : 0;
@@ -412,7 +551,7 @@ export function calculateTermGrade(
   const termAssessmentRaw = st1_s + st2_s + te_s;
   const termAssessmentHigh = st1_h + st2_h + te_h;
   const termAssessmentPct = termAssessmentHigh > 0 ? (termAssessmentRaw / termAssessmentHigh) * 100 : 0;
-  const termAssessmentWeighted = termAssessmentPct * area.weights.termAssessment;
+  const termAssessmentWeighted = termAssessmentPct * weights.termAssessment;
 
   // Initial Grade (Sum of weighted scores)
   const initialGrade = Math.round((wwWeighted + ptWeighted + termAssessmentWeighted) * 100) / 100;
@@ -431,7 +570,7 @@ export function calculateTermGrade(
     section: section.trim() || 'Section 1',
     schoolName: schoolName.trim() || 'DepEd Public School',
     term,
-    learningAreaName: area.name,
+    learningAreaName,
     wwRawTotal: wwRaw,
     wwHighestTotal: wwHigh,
     wwPercentage: Math.round(wwPct * 100) / 100,
@@ -447,7 +586,7 @@ export function calculateTermGrade(
     initialGrade,
     transmutedGrade,
     descriptor,
-    weights: area.weights
+    weights
   };
 }
 

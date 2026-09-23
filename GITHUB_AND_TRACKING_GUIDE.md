@@ -1,5 +1,6 @@
-# TALA: GitHub Pages Deployment & Multi-User Privacy Guide
-*By Eli Belleza · DepEd Order No. 15, s. 2026 Compliant*
+# TALA: Three-Term Academic Learning Analyzer
+### 3-Term Grade Calculator & Academic Progress Planner · By Eli Belleza
+*Compliant with DepEd Order No. 15, s. 2026 · Mascot: Tali the Tarsier*
 
 ---
 

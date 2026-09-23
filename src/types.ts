@@ -40,6 +40,7 @@ export interface LearningAreaConfig {
     termAssessment: number; // e.g. 0.20
   };
   description: string;
+  isCustom?: boolean;
 }
 
 export interface GradeLevelConfig {

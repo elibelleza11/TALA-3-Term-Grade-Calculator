@@ -22,16 +22,16 @@ export const DescriptorsLegend: React.FC<DescriptorsLegendProps> = ({ currentLev
         <div>
           <div className="flex items-center gap-2">
             <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-white font-display">
-              Official DepEd Order No. 15, s. 2026 Performance Descriptors
+              Descriptors
             </h3>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Standard achievement levels for the Philippine 3-Term Academic Calendar
+            Five levels showing how your child or student is doing.
           </p>
         </div>
 
         <div className="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full text-xs font-semibold border border-slate-200 dark:border-slate-600">
-          DO 15, s. 2026 Standard
+          DepEd Scale
         </div>
       </div>
 
@@ -94,10 +94,10 @@ export const DescriptorsLegend: React.FC<DescriptorsLegendProps> = ({ currentLev
                 style={{ color: item.color }}
               >
                 {item.level === 'Advancing' && '★ Honors Candidate Range'}
-                {item.level === 'Benchmarking' && '✓ Solid Competence'}
-                {item.level === 'Connecting' && '✓ Minimal Honor Baseline'}
-                {item.level === 'Developing' && '✓ Official Passing Mark'}
-                {item.level === 'Emerging' && '! Learning Support Needed'}
+                {item.level === 'Benchmarking' && '✓ Expected Grade-Level Skills'}
+                {item.level === 'Connecting' && '✓ Passing Threshold (75+)'}
+                {item.level === 'Developing' && '! Targeted Support Needed'}
+                {item.level === 'Emerging' && '! Intensive Support Needed'}
               </div>
             </div>
           );

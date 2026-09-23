@@ -92,13 +92,13 @@ export const TrafficStatsBanner: React.FC<TrafficStatsBannerProps> = ({
           </div>
           <div>
             <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
-              Curriculum Standard
+              Grading Scale
             </span>
             <div className="flex items-baseline gap-1">
               <span className="text-xs sm:text-sm font-extrabold text-purple-950 dark:text-purple-300">
-                DO 15, s. 2026
+                DepEd 3-Term
               </span>
-              <span className="text-[10px] text-purple-600 dark:text-purple-400 font-bold">3-Term</span>
+              <span className="text-[10px] text-purple-600 dark:text-purple-400 font-bold">2026–2027</span>
             </div>
           </div>
         </div>

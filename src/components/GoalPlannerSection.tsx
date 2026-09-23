@@ -63,10 +63,10 @@ export const GoalPlannerSection: React.FC<GoalPlannerProps> = ({
           </div>
           <div>
             <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white font-display flex items-center gap-2">
-              <span>DepEd Goal Planner & Target Score Simulator</span>
+              <span>Goal Planner</span>
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Calculate exact scores needed on upcoming exams and terms to secure your target grade or honor award.
+              Find out what score you need on your exam or next term to hit your goal!
             </p>
           </div>
         </div>
@@ -99,10 +99,10 @@ export const GoalPlannerSection: React.FC<GoalPlannerProps> = ({
                 playPop();
                 setTargetTransmuted(item.val);
               }}
-              className={`px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+              className={`btn-3d px-3.5 py-2 rounded-2xl text-xs font-black transition-all cursor-pointer border-b-4 select-none ${
                 targetTransmuted === item.val
-                  ? 'bg-indigo-600 text-white border-indigo-700 shadow-sm scale-105'
-                  : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:border-indigo-400'
+                  ? 'bg-indigo-600 text-white border-indigo-800 shadow-md shadow-indigo-500/20'
+                  : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-slate-300 dark:border-slate-700 hover:bg-slate-50'
               }`}
             >
               {item.label}

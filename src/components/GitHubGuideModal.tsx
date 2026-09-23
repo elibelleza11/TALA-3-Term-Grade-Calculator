@@ -55,11 +55,42 @@ export const GitHubGuideModal: React.FC<GitHubGuideModalProps> = ({ isOpen, onCl
           </div>
         </div>
 
-        {/* Question 2: How to Track Visitors on GitHub Pages */}
+        {/* Question 2: How to Avoid the Blank White Page on GitHub Pages */}
+        <div className="space-y-2">
+          <h4 className="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2">
+            <Globe className="w-4 h-4 text-indigo-500" />
+            <span>2. Publishing to GitHub Pages (Fixing the "Blank White Page")</span>
+          </h4>
+          <div className="p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 text-xs text-indigo-950 dark:text-indigo-200 leading-relaxed space-y-3">
+            <p>
+              <strong>Why a white page happens:</strong> The raw <code>index.html</code> at the root is a template that references TypeScript source code (<code>/src/main.tsx</code>). Browsers cannot run raw TypeScript directly without Vite compiling it into static JavaScript!
+            </p>
+            <div className="p-3 bg-white dark:bg-slate-800 rounded-xl border border-indigo-100 dark:border-slate-700 space-y-1.5 text-slate-700 dark:text-slate-300">
+              <p className="font-bold text-indigo-700 dark:text-indigo-400">
+                ✨ Option A: GitHub Actions (Recommended · 1-Click Setup)
+              </p>
+              <p className="text-[11px]">
+                We added <code>.github/workflows/deploy.yml</code> to your repository.
+                Go to GitHub repository → <strong>Settings</strong> → <strong>Pages</strong> → set <strong>Source</strong> to <strong>"GitHub Actions"</strong>. GitHub will automatically build and publish the live site on every push!
+              </p>
+            </div>
+            <div className="p-3 bg-white dark:bg-slate-800 rounded-xl border border-indigo-100 dark:border-slate-700 space-y-1.5 text-slate-700 dark:text-slate-300">
+              <p className="font-bold text-emerald-700 dark:text-emerald-400">
+                🚀 Option B: Deploy from the /docs Folder (Pre-built &amp; Ready)
+              </p>
+              <p className="text-[11px]">
+                We generated the pre-compiled <strong><code>docs/index.html</code></strong> and <strong><code>docs/assets/</code></strong> inside this repository.
+                Go to GitHub repository → <strong>Settings</strong> → <strong>Pages</strong> → set <strong>Source</strong> to <strong>"Deploy from a branch"</strong> → select <strong>main</strong> branch and folder <strong>/docs</strong> → click <strong>Save</strong>!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Question 3: How to Track Visitors on GitHub Pages */}
         <div className="space-y-2">
           <h4 className="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2">
             <BarChart3 className="w-4 h-4 text-blue-500" />
-            <span>2. How to Track Who Visits the Site on GitHub Pages</span>
+            <span>3. How to Track Visitors on GitHub Pages (Zero-Leakage Privacy)</span>
           </h4>
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300 space-y-3">
             <p>

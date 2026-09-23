@@ -1,6 +1,6 @@
 {
   "name": "TALA 3-Term Grade Calculator",
-  "description": "Student- and parent-friendly 3-term interactive grade calculator for DepEd public schools with updated DO 15, s. 2026 descriptors (Advancing, Benchmarking, Connecting, Developing, Emerging), learning-area awareness, grade reveal, privacy-protected logs, and visitor traffic counter.",
+  "description": "TALA: Three-Term Academic Learning Analyzer. 3-Term Grade Calculator & Academic Progress Planner by Eli Belleza. Featuring Tali the Tarsier mascot and compliant with DepEd Order No. 15, s. 2026.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
