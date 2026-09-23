@@ -19,10 +19,10 @@ export const GitHubGuideModal: React.FC<GitHubGuideModalProps> = ({ isOpen, onCl
             </div>
             <div>
               <h3 className="text-lg font-black text-slate-900 dark:text-white font-display">
-                Publishing TALA on GitHub Pages &amp; Tracking Visitors
+                Push to GitHub (elibelleza11/TALA-3-Term-Grade-Calculator)
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Architectural advice on embedded demo data vs. blank slate &amp; visitor analytics
+                All latest changes, HTML builds, and the interactive climbing Tali are packaged and ready to push!
               </p>
             </div>
           </div>
@@ -32,6 +32,25 @@ export const GitHubGuideModal: React.FC<GitHubGuideModalProps> = ({ isOpen, onCl
           >
             <X className="w-5 h-5" />
           </button>
+        </div>
+
+        {/* Quick Push Instructions */}
+        <div className="space-y-2">
+          <h4 className="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2">
+            <Code2 className="w-4 h-4 text-indigo-500" />
+            <span>How to push these changes to your GitHub repo</span>
+          </h4>
+          <div className="p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 text-xs text-indigo-950 dark:text-indigo-200 leading-relaxed space-y-2">
+            <p>
+              Your remote <code>origin</code> is already set to <strong><code>https://github.com/elibelleza11/TALA-3-Term-Grade-Calculator.git</code></strong>. Because GitHub requires your Personal Access Token or SSH key to authenticate writes, run this in your terminal:
+            </p>
+            <div className="p-3 bg-slate-900 text-emerald-400 font-mono text-[11px] rounded-xl overflow-x-auto space-y-1">
+              <p className="text-slate-400"># 1. Push to your main branch (use your GitHub username & Personal Access Token when prompted):</p>
+              <p className="font-bold text-white">git push -u origin main</p>
+              <p className="text-slate-400 pt-1"># Alternatively, if you use a GitHub Personal Access Token (PAT):</p>
+              <p className="text-amber-300">git push https://&lt;YOUR_TOKEN&gt;@github.com/elibelleza11/TALA-3-Term-Grade-Calculator.git main</p>
+            </div>
+          </div>
         </div>
 
         {/* Question 1: Embedded Demo Data vs Blank */}
