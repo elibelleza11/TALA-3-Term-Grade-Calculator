@@ -254,7 +254,7 @@ export const TransmutationTableSection: React.FC<TransmutationTableSectionProps>
 
       {/* THE OFFICIAL TRANSMUTATION TABLE */}
       <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700">
-        <table className="w-full text-left text-xs border-collapse">
+        <table className="w-full text-left text-xs border-collapse min-w-[500px]">
           <thead>
             <tr className="bg-slate-100/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 font-bold border-b border-slate-200 dark:border-slate-700">
               <th className="py-3 px-3">IG (Min)</th>

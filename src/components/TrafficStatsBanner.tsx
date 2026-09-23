@@ -105,16 +105,16 @@ export const TrafficStatsBanner: React.FC<TrafficStatsBannerProps> = ({
       </div>
 
       {/* Mini Info Strip */}
-      <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 px-1">
-        <div className="flex items-center gap-1.5">
-          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-          <span>Independent sessions: Multiple users can compute simultaneously without seeing each other's grades.</span>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-[11px] text-slate-500 dark:text-slate-400 px-1">
+        <div className="flex items-center gap-1.5 min-w-0">
+          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+          <span className="truncate sm:whitespace-normal">Independent sessions: 100% private to your browser.</span>
         </div>
         {onOpenSettings && (
           <button
             type="button"
             onClick={onOpenSettings}
-            className="text-emerald-700 dark:text-emerald-400 hover:underline font-bold cursor-pointer"
+            className="text-emerald-700 dark:text-emerald-400 hover:underline font-bold cursor-pointer self-start sm:self-auto shrink-0"
           >
             Visitor Analytics Settings →
           </button>

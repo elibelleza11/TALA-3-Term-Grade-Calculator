@@ -169,6 +169,15 @@ export const ScoreInputSection: React.FC<ScoreInputSectionProps> = ({
   const stTotalHigh = st1H + st2H + teH;
   const stPct = stTotalHigh > 0 ? (stTotalRaw / stTotalHigh) * 100 : 0;
 
+  // Live Weighted Scores (DepEd DO 15, s. 2026)
+  const wwWeightedVal = wwPct * (wwWeightPct / 100);
+  const ptWeightedVal = ptPct * (ptWeightPct / 100);
+  const st1WeightedVal = st1H > 0 ? (st1R / st1H) * 9 : 0;
+  const st2WeightedVal = st2H > 0 ? (st2R / st2H) * 9 : 0;
+  const teWeightedVal = teH > 0 ? (teR / teH) * 12 : 0;
+  const examWeightedVal = st1WeightedVal + st2WeightedVal + teWeightedVal;
+  const totalSumWeightedVal = wwWeightedVal + ptWeightedVal + examWeightedVal;
+
   // Demo sample loader
   const loadSampleScores = (tier: 'advancing' | 'benchmarking' | 'developing') => {
     playPop();
@@ -438,7 +447,7 @@ export const ScoreInputSection: React.FC<ScoreInputSectionProps> = ({
           <div className="mt-4 pt-3.5 border-t border-amber-100 dark:border-slate-700 space-y-2">
             <div className="flex items-center justify-between text-xs">
               <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                WW Mastery Progress
+                WW Mastery &amp; Weighted
               </span>
               <span className="font-mono font-black text-amber-700 dark:text-amber-400">
                 {wwRaw} / {wwHigh} pts ({Math.round(wwPct)}%)
@@ -453,6 +462,14 @@ export const ScoreInputSection: React.FC<ScoreInputSectionProps> = ({
               >
                 <div className="absolute inset-0 bg-white/20 rounded-full h-1/2" />
               </div>
+            </div>
+
+            {/* Live Weighted Score Display */}
+            <div className="flex items-center justify-between text-[11px] bg-amber-50 dark:bg-amber-950/40 p-2 rounded-xl border border-amber-200/80 dark:border-amber-800/60">
+              <span className="font-bold text-amber-900 dark:text-amber-200">WW Weighted Score:</span>
+              <span className="font-mono font-black text-amber-800 dark:text-amber-300">
+                {wwWeightedVal.toFixed(2)} pts <span className="text-amber-600 dark:text-amber-400 font-medium">({wwWeightPct}% max)</span>
+              </span>
             </div>
           </div>
         </div>
@@ -629,6 +646,14 @@ export const ScoreInputSection: React.FC<ScoreInputSectionProps> = ({
                 <div className="absolute inset-0 bg-white/20 rounded-full h-1/2" />
               </div>
             </div>
+
+            {/* Live Weighted Score Display */}
+            <div className="flex items-center justify-between text-[11px] bg-emerald-50 dark:bg-emerald-950/40 p-2 rounded-xl border border-emerald-200/80 dark:border-emerald-800/60">
+              <span className="font-bold text-emerald-900 dark:text-emerald-200">PT Weighted Score:</span>
+              <span className="font-mono font-black text-emerald-800 dark:text-emerald-300">
+                {ptWeightedVal.toFixed(2)} pts <span className="text-emerald-600 dark:text-emerald-400 font-medium">({ptWeightPct}% max)</span>
+              </span>
+            </div>
           </div>
         </div>
 
@@ -656,15 +681,21 @@ export const ScoreInputSection: React.FC<ScoreInputSectionProps> = ({
             </div>
 
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-3 font-medium">
-              Summative Test 1, Summative Test 2, and Terminal Examination
+              ST1 (9%), ST2 (9%), and Terminal Exam (12%) totaling 30% Assessment weight
             </p>
 
             <div className="space-y-3">
               {/* ST1 */}
               <div className="p-2.5 bg-slate-50/80 dark:bg-slate-900/60 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 flex-wrap">
                   <span className="text-xs font-black text-slate-700 dark:text-slate-200">
                     Summative Test 1 (ST1)
+                  </span>
+                  <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300">
+                    9%
+                  </span>
+                  <span className="text-[10px] font-mono font-bold text-blue-600 dark:text-blue-400">
+                    ({st1WeightedVal.toFixed(2)} pts)
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -711,9 +742,15 @@ export const ScoreInputSection: React.FC<ScoreInputSectionProps> = ({
 
               {/* ST2 */}
               <div className="p-2.5 bg-slate-50/80 dark:bg-slate-900/60 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 flex-wrap">
                   <span className="text-xs font-black text-slate-700 dark:text-slate-200">
                     Summative Test 2 (ST2)
+                  </span>
+                  <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300">
+                    9%
+                  </span>
+                  <span className="text-[10px] font-mono font-bold text-blue-600 dark:text-blue-400">
+                    ({st2WeightedVal.toFixed(2)} pts)
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -760,9 +797,15 @@ export const ScoreInputSection: React.FC<ScoreInputSectionProps> = ({
 
               {/* TE */}
               <div className="p-2.5 bg-slate-50/80 dark:bg-slate-900/60 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 flex-wrap">
                   <span className="text-xs font-black text-slate-700 dark:text-slate-200">
                     Terminal Exam (TE)
+                  </span>
+                  <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300">
+                    12%
+                  </span>
+                  <span className="text-[10px] font-mono font-bold text-blue-600 dark:text-blue-400">
+                    ({teWeightedVal.toFixed(2)} pts)
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -813,7 +856,7 @@ export const ScoreInputSection: React.FC<ScoreInputSectionProps> = ({
           <div className="mt-4 pt-3.5 border-t border-blue-100 dark:border-slate-700 space-y-2">
             <div className="flex items-center justify-between text-xs">
               <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                Summative Mastery Progress
+                Summative Mastery &amp; Weighted
               </span>
               <span className="font-mono font-black text-blue-700 dark:text-blue-400">
                 {stTotalRaw} / {stTotalHigh} pts ({Math.round(stPct)}%)
@@ -829,6 +872,61 @@ export const ScoreInputSection: React.FC<ScoreInputSectionProps> = ({
                 <div className="absolute inset-0 bg-white/20 rounded-full h-1/2" />
               </div>
             </div>
+
+            {/* Live Weighted Score Display for Exam */}
+            <div className="flex items-center justify-between text-[11px] bg-blue-50 dark:bg-blue-950/40 p-2 rounded-xl border border-blue-200/80 dark:border-blue-800/60">
+              <span className="font-bold text-blue-900 dark:text-blue-200">Summative Weighted Score:</span>
+              <span className="font-mono font-black text-blue-800 dark:text-blue-300">
+                {examWeightedVal.toFixed(2)} pts <span className="text-blue-600 dark:text-blue-400 font-medium">({termAssessmentWeightPct}% max)</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Live Sum of Weighted Scores Component Banner */}
+      <div className="bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-blue-500/10 dark:from-amber-950/30 dark:via-emerald-950/30 dark:to-blue-950/30 border-2 border-indigo-200 dark:border-indigo-800/70 rounded-3xl p-4 sm:p-5 shadow-sm">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <h4 className="text-xs font-black uppercase tracking-wider text-slate-800 dark:text-slate-100 font-display">
+                Live Sum of Weighted Scores Breakdown
+              </h4>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-300">
+              Shows real-time weighted contributions of each component towards your 100-point initial grade.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2 bg-white/90 dark:bg-slate-900/90 px-3.5 py-2 rounded-2xl border border-indigo-100 dark:border-slate-700 shadow-inner">
+            <span className="text-xs font-bold text-slate-600 dark:text-slate-400">Sum:</span>
+            <span className="text-sm font-black font-mono text-indigo-700 dark:text-indigo-300">
+              {totalSumWeightedVal.toFixed(2)} <span className="text-xs text-slate-400 font-normal">/ 100 pts</span>
+            </span>
+          </div>
+        </div>
+
+        {/* Component Formula Display */}
+        <div className="mt-3 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 text-center text-xs">
+          <div className="p-2 rounded-xl bg-amber-100/60 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800">
+            <span className="block text-[10px] font-bold text-amber-800 dark:text-amber-300">WW ({wwWeightPct}%)</span>
+            <span className="font-mono font-black text-amber-900 dark:text-amber-200 text-sm">+{wwWeightedVal.toFixed(2)}</span>
+          </div>
+          <div className="p-2 rounded-xl bg-emerald-100/60 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800">
+            <span className="block text-[10px] font-bold text-emerald-800 dark:text-emerald-300">PT ({ptWeightPct}%)</span>
+            <span className="font-mono font-black text-emerald-900 dark:text-emerald-200 text-sm">+{ptWeightedVal.toFixed(2)}</span>
+          </div>
+          <div className="p-2 rounded-xl bg-blue-100/60 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800">
+            <span className="block text-[10px] font-bold text-blue-800 dark:text-blue-300">ST1 (9%)</span>
+            <span className="font-mono font-black text-blue-900 dark:text-blue-200 text-sm">+{st1WeightedVal.toFixed(2)}</span>
+          </div>
+          <div className="p-2 rounded-xl bg-blue-100/60 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800">
+            <span className="block text-[10px] font-bold text-blue-800 dark:text-blue-300">ST2 (9%)</span>
+            <span className="font-mono font-black text-blue-900 dark:text-blue-200 text-sm">+{st2WeightedVal.toFixed(2)}</span>
+          </div>
+          <div className="p-2 rounded-xl bg-indigo-100/60 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800 col-span-2 sm:col-span-1">
+            <span className="block text-[10px] font-bold text-indigo-800 dark:text-indigo-300">TE (12%)</span>
+            <span className="font-mono font-black text-indigo-900 dark:text-indigo-200 text-sm">+{teWeightedVal.toFixed(2)}</span>
           </div>
         </div>
       </div>

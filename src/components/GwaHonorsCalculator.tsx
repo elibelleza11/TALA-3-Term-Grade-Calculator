@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { GradeLevelConfig } from '../types';
+import { GradeLevelConfig, LearningAreaConfig } from '../types';
 import { getGradeConfig, calculateMapehAverage, calculateHonorAwards, getDescriptor } from '../data/depedGrading';
 import { playPop, playSuccessChime } from '../utils/audio';
 import confetti from 'canvas-confetti';
@@ -46,44 +46,54 @@ export const GwaHonorsCalculator: React.FC<GwaHonorsCalculatorProps> = ({
   const gradeConfig = getGradeConfig(gradeLevel);
   const activeAreas = learningAreas || gradeConfig.learningAreas;
 
-  // Initialize rows from active areas
-  const initialRows: SubjectRowState[] = useMemo(() => {
-    return activeAreas.map((area) => {
+  // Helper to build initial rows from activeAreas and automatically generate the composite MAPEH row
+  const buildInitialRows = (areas: LearningAreaConfig[]): SubjectRowState[] => {
+    const rowsList: SubjectRowState[] = [];
+    let hasMusicOrArts = false;
+    let hasPeOrHealth = false;
+
+    areas.forEach((area) => {
       const isSub = area.id.includes('music_arts') || area.id.includes('pe_health');
-      const isParent = area.id.includes('_mapeh');
-      return {
+      if (area.id.includes('music_arts')) hasMusicOrArts = true;
+      if (area.id.includes('pe_health')) hasPeOrHealth = true;
+
+      // Skip any standalone MAPEH row since MAPEH is now computed
+      if (area.id.includes('_mapeh')) return;
+
+      rowsList.push({
         id: area.id,
         name: area.name,
         isMapehSub: isSub,
-        isMapehParent: isParent,
+        isMapehParent: false,
         isCustom: area.isCustom,
         term1: 90,
         term2: 92,
         term3: 91
-      };
+      });
     });
-  }, [activeAreas]);
 
-  const [rows, setRows] = useState<SubjectRowState[]>(initialRows);
+    // If both Music & Arts and PE & Health exist, insert the composite MAPEH row!
+    if (hasMusicOrArts && hasPeOrHealth) {
+      rowsList.push({
+        id: 'composite_mapeh',
+        name: 'MAPEH',
+        isMapehSub: false,
+        isMapehParent: true,
+        isCustom: false,
+        term1: 90,
+        term2: 92,
+        term3: 91
+      });
+    }
+
+    return rowsList;
+  };
+
+  const [rows, setRows] = useState<SubjectRowState[]>(() => buildInitialRows(activeAreas));
 
   // When grade level or learningAreas changes, reset rows
   React.useEffect(() => {
-    setRows(
-      activeAreas.map((area) => {
-        const isSub = area.id.includes('music_arts') || area.id.includes('pe_health');
-        const isParent = area.id.includes('_mapeh');
-        return {
-          id: area.id,
-          name: area.name,
-          isMapehSub: isSub,
-          isMapehParent: isParent,
-          isCustom: area.isCustom,
-          term1: 90,
-          term2: 92,
-          term3: 91
-        };
-      })
-    );
+    setRows(buildInitialRows(activeAreas));
   }, [activeAreas]);
 
   // Keep MAPEH parent automatically updated if Music & Arts and PE & Health are present
@@ -139,6 +149,9 @@ export const GwaHonorsCalculator: React.FC<GwaHonorsCalculatorProps> = ({
     playPop();
     setRows((prev) =>
       prev.map((r, idx) => {
+        if (r.isMapehParent) {
+          return { ...r, term1: '', term2: '', term3: '' };
+        }
         let base = 91;
         if (type === 'high_honors') base = 96;
         if (type === 'disqualified') {
@@ -385,7 +398,7 @@ export const GwaHonorsCalculator: React.FC<GwaHonorsCalculatorProps> = ({
         </div>
 
         <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-xs min-w-[560px]">
             <thead className="bg-slate-50 dark:bg-slate-900/60 text-slate-600 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-700 text-[11px]">
               <tr>
                 <th className="py-3 px-3.5">Learning Area</th>

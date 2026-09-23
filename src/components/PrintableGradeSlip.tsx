@@ -109,7 +109,7 @@ export const PrintableGradeSlip: React.FC<PrintableGradeSlipProps> = ({ result, 
                   </span>
                 </div>
                 <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
-                  <span className="text-[10px] text-slate-500 block">ST1, ST2 &amp; TE ({result.weights ? Math.round(result.weights.termAssessment * 100) : 20}%)</span>
+                  <span className="text-[10px] text-slate-500 block">Exams: ST1 (9%), ST2 (9%), TE (12%)</span>
                   <span className="font-mono font-bold text-slate-800 text-sm">
                     {result.termAssessmentPercentage.toFixed(1)}% ({result.termAssessmentWeighted.toFixed(2)} pts)
                   </span>

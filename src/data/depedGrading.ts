@@ -239,11 +239,11 @@ export function getDescriptor(transmutedGrade: number): DescriptorInfo {
 }
 
 // Learning Areas Component Weights (DepEd Standards & Fully Customizable)
-// Group 1: Math, Science, English, Filipino, Araling Panlipunan -> WW: 20%, PT: 50%, Exam: 30%
+// Under DepEd DO 15, s. 2026: Written Work: 20-30%, Performance Tasks: 50-40%, Term Assessment: 30% (ST1: 9%, ST2: 9%, TE: 12%)
 export const WEIGHTS_MATH_SCI_LANG_AP = { writtenWork: 0.20, performanceTask: 0.50, termAssessment: 0.30 };
 
-// Group 2: GMRC, EsP, EPP, TLE, Music & Arts, PE & Health, MAPEH -> WW: 20%, PT: 60%, Exam: 20%
-export const WEIGHTS_GMRC_EPP_TLE_MAPEH = { writtenWork: 0.20, performanceTask: 0.60, termAssessment: 0.20 };
+// Standard Weight preset: WW: 20%, PT: 50%, Exam: 30% (ST1: 9%, ST2: 9%, TE: 12%)
+export const WEIGHTS_GMRC_EPP_TLE_MAPEH = { writtenWork: 0.20, performanceTask: 0.50, termAssessment: 0.30 };
 
 // Special Program Presets (SPJ, SPA, SPSTEM, SPFL, SPS, ALIVE)
 export interface SpecialProgramPreset {
@@ -258,7 +258,7 @@ export interface SpecialProgramPreset {
 export const SPECIAL_PROGRAMS_PRESETS: SpecialProgramPreset[] = [
   {
     id: 'spj',
-    name: 'SPJ (Special Program in Journalism)',
+    name: 'Special Program in Journalism (SPJ)',
     shortName: 'SPJ',
     description: 'News writing, feature, editorial, photojournalism, and broadcasting',
     weights: { writtenWork: 0.20, performanceTask: 0.50, termAssessment: 0.30 },
@@ -266,15 +266,15 @@ export const SPECIAL_PROGRAMS_PRESETS: SpecialProgramPreset[] = [
   },
   {
     id: 'spa',
-    name: 'SPA (Special Program in the Arts)',
+    name: 'Special Program in the Arts (SPA)',
     shortName: 'SPA',
     description: 'Visual arts, creative writing, music, theater, and dance',
-    weights: { writtenWork: 0.20, performanceTask: 0.60, termAssessment: 0.20 },
+    weights: { writtenWork: 0.20, performanceTask: 0.50, termAssessment: 0.30 },
     iconName: 'Palette'
   },
   {
     id: 'spstem',
-    name: 'SPSTEM / STE (Special Program in STEM)',
+    name: 'Special Program in STEM (SPSTEM)',
     shortName: 'SPSTEM',
     description: 'Advanced science, technology, research, engineering, and mathematics',
     weights: { writtenWork: 0.20, performanceTask: 0.50, termAssessment: 0.30 },
@@ -282,7 +282,7 @@ export const SPECIAL_PROGRAMS_PRESETS: SpecialProgramPreset[] = [
   },
   {
     id: 'spfl',
-    name: 'SPFL (Special Program in Foreign Language)',
+    name: 'Special Program in Foreign Language (SPFL)',
     shortName: 'SPFL',
     description: 'Conversational foreign languages (Spanish, Japanese, Mandarin, French, German)',
     weights: { writtenWork: 0.20, performanceTask: 0.50, termAssessment: 0.30 },
@@ -290,15 +290,15 @@ export const SPECIAL_PROGRAMS_PRESETS: SpecialProgramPreset[] = [
   },
   {
     id: 'sps',
-    name: 'SPS (Special Program in Sports)',
+    name: 'Special Program in Sports (SPS)',
     shortName: 'SPS',
     description: 'Athletic disciplines, physical conditioning, tournament officiating',
-    weights: { writtenWork: 0.20, performanceTask: 0.60, termAssessment: 0.20 },
+    weights: { writtenWork: 0.20, performanceTask: 0.50, termAssessment: 0.30 },
     iconName: 'Activity'
   },
   {
     id: 'alive',
-    name: 'ALIVE (Arabic Language & Islamic Values)',
+    name: 'Arabic Language and Islamic Values Education (ALIVE)',
     shortName: 'ALIVE',
     description: 'Arabic language literacy and Islamic cultural values education',
     weights: { writtenWork: 0.20, performanceTask: 0.50, termAssessment: 0.30 },
@@ -315,7 +315,7 @@ export const GRADE_LEVELS_DATA: GradeLevelConfig[] = [
       { id: 'g1_read_lit', name: 'Reading and Literacy', shortName: 'Reading', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Foundational reading comprehension and phonics' },
       { id: 'g1_language', name: 'Language', shortName: 'Language', iconName: 'MessageSquare', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Expressive and receptive language acquisition' },
       { id: 'g1_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Numbers, shapes, patterns, and basic arithmetic' },
-      { id: 'g1_gmrc', name: 'GMRC (Values Education)', shortName: 'GMRC', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Good Manners and Right Conduct' },
+      { id: 'g1_gmrc', name: 'GMRC', shortName: 'GMRC', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Good Manners and Right Conduct' },
     ]
   },
   {
@@ -337,7 +337,7 @@ export const GRADE_LEVELS_DATA: GradeLevelConfig[] = [
       { id: 'g3_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Multiplication, division, and measurement' },
       { id: 'g3_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Grammar, reading comprehension, and writing' },
       { id: 'g3_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Pagbasa at pagsulat sa sariling wika' },
-      { id: 'g3_makabansa', name: 'Makabansa (Araling Panlipunan)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Kasaysayan ng komunidad at rehiyon' },
+      { id: 'g3_makabansa', name: 'Makabansa', shortName: 'Makabansa', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Kasaysayan ng komunidad at rehiyon' },
       { id: 'g3_gmrc', name: 'GMRC', shortName: 'GMRC', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Values and responsible actions' },
     ]
   },
@@ -350,11 +350,10 @@ export const GRADE_LEVELS_DATA: GradeLevelConfig[] = [
       { id: 'g4_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Communicative competence and textual analysis' },
       { id: 'g4_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Wikang Pambansa at panitikan' },
       { id: 'g4_ap', name: 'Araling Panlipunan (AP)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Heograpiya at kultura ng Pilipinas' },
-      { id: 'g4_epp', name: 'EPP (Home Economics & Livelihood)', shortName: 'EPP', iconName: 'Briefcase', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Practical hands-on household and vocational skills' },
+      { id: 'g4_epp', name: 'EPP', shortName: 'EPP', iconName: 'Briefcase', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Practical hands-on household and vocational skills' },
       { id: 'g4_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Creative expression, traditional melodies, visual arts' },
       { id: 'g4_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Physical fitness, games, safety, and personal wellness' },
-      { id: 'g4_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Official composite of Music & Arts and PE & Health' },
-      { id: 'g4_gmrc', name: 'GMRC / Values Education', shortName: 'GMRC', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Moral discernment and active citizenship' },
+      { id: 'g4_gmrc', name: 'GMRC', shortName: 'GMRC', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Moral discernment and active citizenship' },
     ]
   },
   {
@@ -369,7 +368,6 @@ export const GRADE_LEVELS_DATA: GradeLevelConfig[] = [
       { id: 'g5_epp', name: 'EPP', shortName: 'EPP', iconName: 'Briefcase', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Agrikultura, ICT, at kabuhayan' },
       { id: 'g5_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Philippine ethnic musical forms and regional arts' },
       { id: 'g5_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Target games, gymnastics, emotional health and nutrition' },
-      { id: 'g5_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Official composite of Music & Arts and PE & Health' },
       { id: 'g5_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Pagpapahalaga sa katotohanan at kapwa' },
     ]
   },
@@ -385,7 +383,6 @@ export const GRADE_LEVELS_DATA: GradeLevelConfig[] = [
       { id: 'g6_tle', name: 'TLE / EPP', shortName: 'TLE', iconName: 'Briefcase', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Industrial arts, entrepreneurship, and nutrition' },
       { id: 'g6_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Musical forms, western art styles, and stage design' },
       { id: 'g6_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Striking games, rhythmic routines, and community health' },
-      { id: 'g6_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Official composite of Music & Arts and PE & Health' },
       { id: 'g6_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Pangako, responsibilidad, at katarungan' },
     ]
   },
@@ -397,11 +394,10 @@ export const GRADE_LEVELS_DATA: GradeLevelConfig[] = [
       { id: 'g7_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Sets, real numbers, polynomials, and linear equations' },
       { id: 'g7_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Philippine Literature and communicative grammar' },
       { id: 'g7_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Ibong Adarna at Panitikang Rehiyonal' },
-      { id: 'g7_ap', name: 'Araling Panlipunan (Asya)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Heograpiya, sibilisasyon, at kultura ng Asya' },
-      { id: 'g7_tle', name: 'TLE (Exploratory)', shortName: 'TLE', iconName: 'Wrench', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Cookery, Carpentry, Technical Drafting, and ICT' },
+      { id: 'g7_ap', name: 'Araling Panlipunan (AP)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Heograpiya, sibilisasyon, at kultura ng Asya' },
+      { id: 'g7_tle', name: 'TLE', shortName: 'TLE', iconName: 'Wrench', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Cookery, Carpentry, Technical Drafting, and ICT' },
       { id: 'g7_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Folk music of Luzon, Lowland arts, traditional textiles' },
       { id: 'g7_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Physical fitness components, holistic health, and dual sports' },
-      { id: 'g7_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Official composite of Music & Arts and PE & Health' },
       { id: 'g7_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Pagtuklas ng angking talento at pagpapahalaga' },
     ]
   },
@@ -413,11 +409,10 @@ export const GRADE_LEVELS_DATA: GradeLevelConfig[] = [
       { id: 'g8_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Factoring, rational expressions, and coordinate geometry' },
       { id: 'g8_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Afro-Asian Literature and persuasive rhetoric' },
       { id: 'g8_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Florante at Laura at Panitikang Tradisyunal' },
-      { id: 'g8_ap', name: 'Araling Panlipunan (Daigdig)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Kasaysayan ng Daigdig at Pandaigdigang Alyansa' },
-      { id: 'g8_tle', name: 'TLE (Specialization)', shortName: 'TLE', iconName: 'Wrench', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Applied technical skills and entrepreneurship' },
+      { id: 'g8_ap', name: 'Araling Panlipunan (AP)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Kasaysayan ng Daigdig at Pandaigdigang Alyansa' },
+      { id: 'g8_tle', name: 'TLE', shortName: 'TLE', iconName: 'Wrench', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Applied technical skills and entrepreneurship' },
       { id: 'g8_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Southeast Asian music, fabric design, and sculpture' },
-      { id: 'g8_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Team sports (basketball/volleyball), family health, wellness' },
-      { id: 'g8_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Official composite of Music & Arts and PE & Health' },
+      { id: 'g8_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Team sports, family health, wellness' },
       { id: 'g8_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Pakikipagkapwa at katatagan ng pamilya' },
     ]
   },
@@ -429,11 +424,10 @@ export const GRADE_LEVELS_DATA: GradeLevelConfig[] = [
       { id: 'g9_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Quadratic equations, variations, and trigonometry' },
       { id: 'g9_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Anglo-American Literature and critical analysis' },
       { id: 'g9_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Noli Me Tangere at Panitikang Asyano' },
-      { id: 'g9_ap', name: 'Araling Panlipunan (Ekonomiks)', shortName: 'Ekonomiks', iconName: 'TrendingUp', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Maykro at Makroekonomiks, pambansang kaunlaran' },
+      { id: 'g9_ap', name: 'Araling Panlipunan (AP)', shortName: 'AP', iconName: 'TrendingUp', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Maykro at Makroekonomiks, pambansang kaunlaran' },
       { id: 'g9_tle', name: 'TLE', shortName: 'TLE', iconName: 'Wrench', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Vocational specialization and lab hands-on' },
       { id: 'g9_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Medieval to Classical European music and Renaissance arts' },
       { id: 'g9_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Festival dances, environmental health, and injury prevention' },
-      { id: 'g9_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Official composite of Music & Arts and PE & Health' },
       { id: 'g9_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Katarungang panlipunan at kabutihang panlahat' },
     ]
   },
@@ -445,11 +439,10 @@ export const GRADE_LEVELS_DATA: GradeLevelConfig[] = [
       { id: 'g10_math', name: 'Mathematics', shortName: 'Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Sequences, polynomial functions, and circle theorems' },
       { id: 'g10_english', name: 'English', shortName: 'English', iconName: 'Languages', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'World Literature and argumentation' },
       { id: 'g10_filipino', name: 'Filipino', shortName: 'Filipino', iconName: 'BookOpen', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'El Filibusterismo at Pandaigdigang Panitikan' },
-      { id: 'g10_ap', name: 'Araling Panlipunan (Kontemporaryo)', shortName: 'Kontemporaryo', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Mga Kontemporaryong Isyu at karapatang pantao' },
+      { id: 'g10_ap', name: 'Araling Panlipunan (AP)', shortName: 'AP', iconName: 'Globe', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Mga Kontemporaryong Isyu at karapatang pantao' },
       { id: 'g10_tle', name: 'TLE', shortName: 'TLE', iconName: 'Wrench', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'National Certificate (NC) competency preparation' },
       { id: 'g10_music_arts', name: 'Music and Arts', shortName: 'Music & Arts', iconName: 'Palette', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: '20th Century contemporary music, modern tech art and photography' },
       { id: 'g10_pe_health', name: 'PE and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Street dance, hip-hop, active recreation and global health trends' },
-      { id: 'g10_mapeh', name: 'MAPEH (Average of Music & Arts + PE & Health)', shortName: 'MAPEH', iconName: 'Award', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Official composite of Music & Arts and PE & Health' },
       { id: 'g10_esp', name: 'Edukasyon sa Pagpapakatao (EsP)', shortName: 'EsP', iconName: 'Heart', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Paghahanda sa Senior High School at bokasyon' },
     ]
   },
@@ -460,7 +453,7 @@ export const GRADE_LEVELS_DATA: GradeLevelConfig[] = [
       { id: 'g11_core_oral', name: 'Oral Communication / Komunikasyon', shortName: 'Oral Comm', iconName: 'MessageSquare', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Core communication principles in English & Filipino' },
       { id: 'g11_core_genmath', name: 'General Mathematics / Statistics', shortName: 'Gen Math', iconName: 'Calculator', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Functions, business math, probability distributions' },
       { id: 'g11_core_earthsci', name: 'Earth & Life Science / Physical Science', shortName: 'Science', iconName: 'FlaskConical', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Geology, ecology, and chemical principles' },
-      { id: 'g11_acad_stem', name: 'STEM Specialization (Pre-Calculus / Bio / Chem)', shortName: 'STEM Spec', iconName: 'Binary', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Advanced academic STEM subjects' },
+      { id: 'g11_acad_stem', name: 'STEM Specialization', shortName: 'STEM Spec', iconName: 'Binary', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Advanced academic STEM subjects' },
       { id: 'g11_acad_humss_abm', name: 'ABM / HUMSS Applied Subject', shortName: 'ABM / HUMSS', iconName: 'Briefcase', weights: WEIGHTS_MATH_SCI_LANG_AP, description: 'Organization, economics, creative writing' },
       { id: 'g11_tvl_spec', name: 'TVL Specialization Course', shortName: 'TVL Spec', iconName: 'Wrench', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Hands-on practical industry competency training' },
       { id: 'g11_pe_health', name: 'Physical Education and Health', shortName: 'PE & Health', iconName: 'Activity', weights: WEIGHTS_GMRC_EPP_TLE_MAPEH, description: 'Physical wellness, dance, and recreational fitness' },
@@ -541,6 +534,7 @@ export function calculateTermGrade(
   const ptWeighted = ptPct * weights.performanceTask;
 
   // 3. Summative Assessments (ST1, ST2, TE)
+  // DepEd DO 15, s. 2026: ST1 is 9%, ST2 is 9%, and TE is 12% of the total grade (summing to 30% exam component)
   const st1_s = typeof st1Score === 'number' ? Math.max(0, st1Score) : 0;
   const st1_h = typeof st1Total === 'number' ? Math.max(1, st1Total) : 0;
   const st2_s = typeof st2Score === 'number' ? Math.max(0, st2Score) : 0;
@@ -548,10 +542,24 @@ export function calculateTermGrade(
   const te_s = typeof teScore === 'number' ? Math.max(0, teScore) : 0;
   const te_h = typeof teTotal === 'number' ? Math.max(1, teTotal) : 0;
 
+  const st1Pct = st1_h > 0 ? (st1_s / st1_h) * 100 : 0;
+  const st2Pct = st2_h > 0 ? (st2_s / st2_h) * 100 : 0;
+  const tePct = te_h > 0 ? (te_s / te_h) * 100 : 0;
+
+  // Relative distribution: ST1 is 9%, ST2 is 9%, TE is 12% when exam weight is 30%
+  const examTotalWeight = weights.termAssessment;
+  const st1Factor = examTotalWeight === 0.30 ? 0.09 : examTotalWeight * (9 / 30);
+  const st2Factor = examTotalWeight === 0.30 ? 0.09 : examTotalWeight * (9 / 30);
+  const teFactor = examTotalWeight === 0.30 ? 0.12 : examTotalWeight * (12 / 30);
+
+  const st1Weighted = st1Pct * st1Factor;
+  const st2Weighted = st2Pct * st2Factor;
+  const teWeighted = tePct * teFactor;
+
   const termAssessmentRaw = st1_s + st2_s + te_s;
   const termAssessmentHigh = st1_h + st2_h + te_h;
-  const termAssessmentPct = termAssessmentHigh > 0 ? (termAssessmentRaw / termAssessmentHigh) * 100 : 0;
-  const termAssessmentWeighted = termAssessmentPct * weights.termAssessment;
+  const termAssessmentWeighted = st1Weighted + st2Weighted + teWeighted;
+  const termAssessmentPct = examTotalWeight > 0 ? (termAssessmentWeighted / examTotalWeight) : 0;
 
   // Initial Grade (Sum of weighted scores)
   const initialGrade = Math.round((wwWeighted + ptWeighted + termAssessmentWeighted) * 100) / 100;
@@ -583,6 +591,18 @@ export function calculateTermGrade(
     termAssessmentHighestTotal: termAssessmentHigh,
     termAssessmentPercentage: Math.round(termAssessmentPct * 100) / 100,
     termAssessmentWeighted: Math.round(termAssessmentWeighted * 100) / 100,
+    st1Score: st1_s,
+    st1Total: st1_h,
+    st1Percentage: Math.round(st1Pct * 100) / 100,
+    st1Weighted: Math.round(st1Weighted * 100) / 100,
+    st2Score: st2_s,
+    st2Total: st2_h,
+    st2Percentage: Math.round(st2Pct * 100) / 100,
+    st2Weighted: Math.round(st2Weighted * 100) / 100,
+    teScore: te_s,
+    teTotal: te_h,
+    tePercentage: Math.round(tePct * 100) / 100,
+    teWeighted: Math.round(teWeighted * 100) / 100,
     initialGrade,
     transmutedGrade,
     descriptor,

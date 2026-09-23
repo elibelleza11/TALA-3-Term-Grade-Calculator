@@ -172,3 +172,93 @@ export function playGentleBonk() {
     // fallback
   }
 }
+
+/**
+ * Air whoosh sound when Tali is thrown across the screen
+ */
+export function playWhoosh() {
+  if (isSoundMuted()) return;
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(550, now);
+    osc.frequency.exponentialRampToValueAtTime(180, now + 0.22);
+
+    gain.gain.setValueAtTime(0.25, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.22);
+  } catch {
+    // fallback
+  }
+}
+
+/**
+ * Soft playful boing sound when Tali bounces
+ */
+export function playBoing() {
+  if (isSoundMuted()) return;
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(320, now);
+    osc.frequency.exponentialRampToValueAtTime(640, now + 0.08);
+    osc.frequency.exponentialRampToValueAtTime(260, now + 0.16);
+
+    gain.gain.setValueAtTime(0.2, now);
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.16);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.16);
+  } catch {
+    // fallback
+  }
+}
+
+/**
+ * Suction grip / latch sound when Tali grabs the screen ledge
+ */
+export function playGrip() {
+  if (isSoundMuted()) return;
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(700, now);
+    osc.frequency.setValueAtTime(950, now + 0.04);
+    osc.frequency.exponentialRampToValueAtTime(450, now + 0.1);
+
+    gain.gain.setValueAtTime(0.18, now);
+    gain.gain.exponentialRampToValueAtTime(0.005, now + 0.1);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.1);
+  } catch {
+    // fallback
+  }
+}
+

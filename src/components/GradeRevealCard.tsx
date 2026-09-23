@@ -452,7 +452,7 @@ export const GradeRevealCard: React.FC<GradeRevealCardProps> = ({
                 {/* ST & TE */}
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-semibold text-slate-700 dark:text-slate-300">ST1, ST2 &amp; Term Exam</span>
+                    <span className="font-semibold text-slate-700 dark:text-slate-300">Summative Assessments (30%)</span>
                     <span className="font-mono font-bold text-blue-700 dark:text-blue-400">
                       {result.termAssessmentPercentage.toFixed(1)}%
                     </span>
@@ -463,9 +463,51 @@ export const GradeRevealCard: React.FC<GradeRevealCardProps> = ({
                       style={{ width: `${Math.min(100, result.termAssessmentPercentage)}%` }}
                     />
                   </div>
+                  <div className="flex flex-wrap items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono gap-1 pt-0.5">
+                    <span>ST1 (9%): {result.st1Score ?? '--'}/{result.st1Total ?? '--'} {result.st1Weighted !== undefined ? `(${result.st1Weighted.toFixed(2)} pts)` : ''}</span>
+                    <span>ST2 (9%): {result.st2Score ?? '--'}/{result.st2Total ?? '--'} {result.st2Weighted !== undefined ? `(${result.st2Weighted.toFixed(2)} pts)` : ''}</span>
+                    <span>TE (12%): {result.teScore ?? '--'}/{result.teTotal ?? '--'} {result.teWeighted !== undefined ? `(${result.teWeighted.toFixed(2)} pts)` : ''}</span>
+                  </div>
                   <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-mono">
-                    Weighted: {result.termAssessmentWeighted.toFixed(2)} pts
+                    Total Weighted Exam: {result.termAssessmentWeighted.toFixed(2)} pts (Max: {((result.weights?.termAssessment || 0.30) * 100).toFixed(0)} pts)
                   </span>
+                </div>
+              </div>
+
+              {/* Prominent Sum of Weighted Scores Summary */}
+              <div className="mt-4 pt-3.5 border-t border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-900/60 p-3.5 rounded-2xl border border-slate-200/80 dark:border-slate-700">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-200 font-display">
+                    Sum of Weighted Scores
+                  </span>
+                  <span className="text-xs font-black font-mono text-blue-700 dark:text-blue-400">
+                    Initial Grade: {result.initialGrade.toFixed(2)} / 100
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-center text-xs font-mono">
+                  <div className="bg-amber-100/50 dark:bg-amber-950/40 p-1.5 rounded-lg border border-amber-200 dark:border-amber-800">
+                    <span className="block text-[10px] text-amber-800 dark:text-amber-300 font-sans font-bold">WW</span>
+                    <span className="font-bold text-amber-900 dark:text-amber-200">+{result.wwWeighted.toFixed(2)}</span>
+                  </div>
+                  <div className="bg-emerald-100/50 dark:bg-emerald-950/40 p-1.5 rounded-lg border border-emerald-200 dark:border-emerald-800">
+                    <span className="block text-[10px] text-emerald-800 dark:text-emerald-300 font-sans font-bold">PT</span>
+                    <span className="font-bold text-emerald-900 dark:text-emerald-200">+{result.ptWeighted.toFixed(2)}</span>
+                  </div>
+                  <div className="bg-blue-100/50 dark:bg-blue-950/40 p-1.5 rounded-lg border border-blue-200 dark:border-blue-800">
+                    <span className="block text-[10px] text-blue-800 dark:text-blue-300 font-sans font-bold">ST1</span>
+                    <span className="font-bold text-blue-900 dark:text-blue-200">+{result.st1Weighted?.toFixed(2) ?? '0.00'}</span>
+                  </div>
+                  <div className="bg-blue-100/50 dark:bg-blue-950/40 p-1.5 rounded-lg border border-blue-200 dark:border-blue-800">
+                    <span className="block text-[10px] text-blue-800 dark:text-blue-300 font-sans font-bold">ST2</span>
+                    <span className="font-bold text-blue-900 dark:text-blue-200">+{result.st2Weighted?.toFixed(2) ?? '0.00'}</span>
+                  </div>
+                  <div className="bg-indigo-100/50 dark:bg-indigo-950/40 p-1.5 rounded-lg border border-indigo-200 dark:border-indigo-800 col-span-2 sm:col-span-1">
+                    <span className="block text-[10px] text-indigo-800 dark:text-indigo-300 font-sans font-bold">TE</span>
+                    <span className="font-bold text-indigo-900 dark:text-indigo-200">+{result.teWeighted?.toFixed(2) ?? '0.00'}</span>
+                  </div>
+                </div>
+                <div className="mt-2 text-[11px] text-slate-500 dark:text-slate-400 text-center font-mono">
+                  {result.wwWeighted.toFixed(2)} (WW) + {result.ptWeighted.toFixed(2)} (PT) + {(result.st1Weighted ?? 0).toFixed(2)} (ST1) + {(result.st2Weighted ?? 0).toFixed(2)} (ST2) + {(result.teWeighted ?? 0).toFixed(2)} (TE) = <strong className="text-slate-900 dark:text-white font-bold">{result.initialGrade.toFixed(2)}</strong> ➔ Transmuted: <strong className="text-indigo-600 dark:text-indigo-400 font-black">{result.transmutedGrade}</strong>
                 </div>
               </div>
             </div>
@@ -502,7 +544,7 @@ export const GradeRevealCard: React.FC<GradeRevealCardProps> = ({
 
           {/* E. ADVANCING SLIDE-IN FROM BOTTOM RIGHT: TOSSING DIGITAL CONFETTI ACROSS GREEN RESULT BANNER */}
           {result.descriptor.level === 'Advancing' && showAdvancingSlideIn && (
-            <div className="fixed bottom-5 right-5 z-50 bg-white dark:bg-slate-900 rounded-3xl p-4 sm:p-5 border-3 border-emerald-500 shadow-2xl max-w-sm w-full animate-slideInRight flex items-center gap-3">
+            <div className="fixed bottom-4 left-3 right-3 sm:left-auto sm:right-5 sm:max-w-sm z-50 bg-white dark:bg-slate-900 rounded-3xl p-4 sm:p-5 border-3 border-emerald-500 shadow-2xl animate-slideInRight flex items-center gap-3">
               <div className="w-20 h-20 shrink-0">
                 <TaliTarsierMascot state="advancing" compact size="sm" />
               </div>

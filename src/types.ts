@@ -104,6 +104,20 @@ export interface CalculationResult {
   termAssessmentHighestTotal: number;
   termAssessmentPercentage: number;
   termAssessmentWeighted: number;
+
+  // Breakdown for ST1 (9%), ST2 (9%), TE (12%)
+  st1Score?: number;
+  st1Total?: number;
+  st1Percentage?: number;
+  st1Weighted?: number;
+  st2Score?: number;
+  st2Total?: number;
+  st2Percentage?: number;
+  st2Weighted?: number;
+  teScore?: number;
+  teTotal?: number;
+  tePercentage?: number;
+  teWeighted?: number;
   
   initialGrade: number;
   transmutedGrade: number;

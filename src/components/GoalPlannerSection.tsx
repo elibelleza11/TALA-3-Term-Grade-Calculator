@@ -79,9 +79,9 @@ export const GoalPlannerSection: React.FC<GoalPlannerProps> = ({
 
       {/* SECTION 1: Subject Exam Score Target Planner */}
       <div className="bg-slate-50 dark:bg-slate-900/60 rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-700 space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
           <h4 className="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2">
-            <Compass className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <Compass className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
             <span>Target 1: What exam score do I need for this term?</span>
           </h4>
           <span className="text-xs text-slate-500 dark:text-slate-400">

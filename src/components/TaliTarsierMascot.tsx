@@ -29,6 +29,8 @@ export const TaliTarsierMascot: React.FC<TaliTarsierMascotProps> = ({
   const [isWinking, setIsWinking] = useState(false);
   const [glassesPushed, setGlassesPushed] = useState(false);
   const [tapRipples, setTapRipples] = useState<number[]>([]);
+  const [floatingSparks, setFloatingSparks] = useState<{ id: number; text: string; x: number }[]>([]);
+  const [customCheer, setCustomCheer] = useState<string | null>(null);
   const [isHovered, setIsHovered] = useState(false);
 
   // Derive active behavioral state from descriptorLevel if provided
@@ -69,7 +71,16 @@ export const TaliTarsierMascot: React.FC<TaliTarsierMascotProps> = ({
       'Kumusta! I am Tali the Tarsier, your 3-term academic learning analyzer. Pushing my glasses up to track your scores and progress!'
   };
 
-  const displayMessage = message || stateMessages[activeState];
+  const cheerQuotes = [
+    "🌟 Kaya mo 'yan! (You've got this!) Keep shining!",
+    "👓 *Pushes glasses up* I calculated your potential: 100% awesome!",
+    "✨ High-five! Remember to study with joy and curiosity!",
+    "⭐ Great study habits make bright futures!",
+    "💡 Pro-Tip: Performance tasks are worth 50% to 60% of your grade!",
+    "🥤 Don't forget to drink water and take 5-minute brain breaks!"
+  ];
+
+  const displayMessage = customCheer || message || stateMessages[activeState];
 
   // Periodic blinking effect for tarsier realism
   useEffect(() => {
@@ -85,7 +96,6 @@ export const TaliTarsierMascot: React.FC<TaliTarsierMascotProps> = ({
       playCelebrationChime();
     } else if (activeState === 'connecting' || activeState === 'benchmarking') {
       playDoubleTap();
-      // Add ripple animation
       setTapRipples((prev) => [...prev, Date.now()]);
       setTimeout(() => {
         setTapRipples((prev) => prev.slice(1));
@@ -93,6 +103,23 @@ export const TaliTarsierMascot: React.FC<TaliTarsierMascotProps> = ({
     } else {
       playPop();
     }
+
+    // Spawn floating playful hearts/stars
+    const icons = ['⭐', '✨', '🌟', '💖', '🐾', '🎯'];
+    const chosenIcon = icons[Math.floor(Math.random() * icons.length)];
+    const sparkId = Date.now();
+    const randomX = Math.floor(Math.random() * 60) - 30;
+    setFloatingSparks((prev) => [...prev, { id: sparkId, text: chosenIcon, x: randomX }]);
+    setTimeout(() => {
+      setFloatingSparks((prev) => prev.filter((s) => s.id !== sparkId));
+    }, 1000);
+
+    // Random cheerful quote
+    const randomQuote = cheerQuotes[Math.floor(Math.random() * cheerQuotes.length)];
+    setCustomCheer(randomQuote);
+    setTimeout(() => {
+      setCustomCheer(null);
+    }, 6000);
 
     setGlassesPushed(true);
     setIsWinking(true);
@@ -103,7 +130,7 @@ export const TaliTarsierMascot: React.FC<TaliTarsierMascotProps> = ({
   };
 
   return (
-    <div className={`flex items-center gap-3.5 select-none relative ${className}`}>
+    <div className={`flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 select-none relative w-full ${className}`}>
       {/* Tap Ripples Effect when tapping screen from inside */}
       {tapRipples.map((id) => (
         <span
@@ -112,17 +139,24 @@ export const TaliTarsierMascot: React.FC<TaliTarsierMascotProps> = ({
         />
       ))}
 
+      {/* Floating Sparkles / Hearts on Click */}
+      {floatingSparks.map((spark) => (
+        <span
+          key={spark.id}
+          style={{ transform: `translateX(${spark.x}px)` }}
+          className="absolute -top-4 sm:top-2 left-1/2 sm:left-14 -translate-x-1/2 text-2xl animate-bounce-subtle pointer-events-none z-40 transition-all duration-700 opacity-90 drop-shadow-md select-none"
+        >
+          {spark.text}
+        </span>
+      ))}
+
       {/* SVG TARSIER VECTOR ART WITH DUOLINGO EXPRESSIONS */}
       <div
         onClick={handleTaliClick}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={`relative ${sizeClasses} shrink-0 transition-transform duration-300 hover:scale-105 active:scale-95 cursor-pointer group`}
-        title={
-          activeState === 'connecting' || activeState === 'benchmarking'
-            ? 'Tap Tali to hear him tap the screen from inside! 👓'
-            : 'Click Tali to push his academic glasses! 👓'
-        }
+        title="Tap Tali the Tarsier for friendly cheer and tricks! 👓"
         role="button"
         aria-label="Tali the Tarsier mascot"
       >
@@ -459,9 +493,10 @@ export const TaliTarsierMascot: React.FC<TaliTarsierMascotProps> = ({
 
       {/* SPEECH BUBBLE (Duolingo-styled friendly card) */}
       {!compact && (
-        <div className="flex-1 bg-white dark:bg-slate-800 rounded-2xl p-3 sm:p-4 border-2 border-slate-200 dark:border-slate-700 shadow-xs relative transition-all">
-          {/* Left pointer triangle */}
-          <div className="absolute top-1/2 -left-2 -translate-y-1/2 w-4 h-4 bg-white dark:bg-slate-800 border-l-2 border-b-2 border-slate-200 dark:border-slate-700 rotate-45" />
+        <div className="flex-1 w-full bg-white dark:bg-slate-800 rounded-2xl p-3.5 sm:p-4 border-2 border-slate-200 dark:border-slate-700 shadow-xs relative transition-all">
+          {/* Top pointer on mobile, Left pointer on desktop */}
+          <div className="sm:hidden absolute -top-2 left-1/2 -translate-x-1/2 w-3.5 h-3.5 bg-white dark:bg-slate-800 border-l-2 border-t-2 border-slate-200 dark:border-slate-700 rotate-45" />
+          <div className="hidden sm:block absolute top-1/2 -left-2 -translate-y-1/2 w-4 h-4 bg-white dark:bg-slate-800 border-l-2 border-b-2 border-slate-200 dark:border-slate-700 rotate-45" />
 
           <div className="relative z-10 flex flex-col justify-center">
             <div className="flex items-center justify-between gap-2 mb-1">
