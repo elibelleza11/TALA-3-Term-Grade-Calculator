@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, ExternalLink, Globe, BarChart3, Database, ShieldCheck, CheckCircle2, Code2 } from 'lucide-react';
+import { X, ExternalLink, Globe, BarChart3, Database, ShieldCheck, CheckCircle2, Code2, Download } from 'lucide-react';
 
 interface GitHubGuideModalProps {
   isOpen: boolean;
@@ -7,6 +7,29 @@ interface GitHubGuideModalProps {
 }
 
 export const GitHubGuideModal: React.FC<GitHubGuideModalProps> = ({ isOpen, onClose }) => {
+  const [downloading, setDownloading] = React.useState(false);
+
+  const handleDownload = async () => {
+    try {
+      setDownloading(true);
+      const res = await fetch('/tala-updated-project.zip');
+      if (!res.ok) throw new Error('Download failed');
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'tala-updated-project.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => window.URL.revokeObjectURL(url), 1000);
+    } catch {
+      window.open('/tala-updated-project.zip', '_blank');
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -35,20 +58,61 @@ export const GitHubGuideModal: React.FC<GitHubGuideModalProps> = ({ isOpen, onCl
         </div>
 
         {/* Quick Push Instructions */}
-        <div className="space-y-2">
-          <h4 className="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2">
-            <Code2 className="w-4 h-4 text-indigo-500" />
-            <span>How to push these changes to your GitHub repo</span>
-          </h4>
-          <div className="p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 text-xs text-indigo-950 dark:text-indigo-200 leading-relaxed space-y-2">
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h4 className="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2">
+              <Code2 className="w-4 h-4 text-indigo-500" />
+              <span>How to update your GitHub repository</span>
+            </h4>
+            <button
+              type="button"
+              onClick={handleDownload}
+              disabled={downloading}
+              className="btn-3d px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-black text-xs shadow-sm flex items-center gap-1.5 cursor-pointer"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>{downloading ? 'Preparing ZIP...' : 'Download Updated ZIP (366 KB)'}</span>
+            </button>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 text-xs text-indigo-950 dark:text-indigo-200 leading-relaxed space-y-3">
             <p>
-              Your remote <code>origin</code> is already set to <strong><code>https://github.com/elibelleza11/TALA-3-Term-Grade-Calculator.git</code></strong>. Because GitHub requires your Personal Access Token or SSH key to authenticate writes, run this in your terminal:
+              GitHub requires authentication (either your GitHub password token or an authenticated browser session) before changes can appear on <strong><code>github.com/elibelleza11/TALA-3-Term-Grade-Calculator</code></strong>. Here are the 2 easiest ways to update it right now:
             </p>
-            <div className="p-3 bg-slate-900 text-emerald-400 font-mono text-[11px] rounded-xl overflow-x-auto space-y-1">
-              <p className="text-slate-400"># 1. Push to your main branch (use your GitHub username & Personal Access Token when prompted):</p>
-              <p className="font-bold text-white">git push -u origin main</p>
-              <p className="text-slate-400 pt-1"># Alternatively, if you use a GitHub Personal Access Token (PAT):</p>
-              <p className="text-amber-300">git push https://&lt;YOUR_TOKEN&gt;@github.com/elibelleza11/TALA-3-Term-Grade-Calculator.git main</p>
+
+            <div className="bg-white/80 dark:bg-slate-900/80 p-3.5 rounded-xl border border-indigo-100 dark:border-indigo-900 space-y-2">
+              <span className="font-extrabold text-indigo-900 dark:text-indigo-200 block text-xs">
+                Option 1: Fastest via GitHub Web (No Terminal Needed)
+              </span>
+              <ol className="list-decimal pl-5 space-y-1 text-slate-600 dark:text-slate-300">
+                <li>
+                  Click the green <strong>"Download Updated ZIP"</strong> button above to download <code>tala-updated-project.zip</code>.
+                </li>
+                <li>
+                  Extract the zip file on your computer.
+                </li>
+                <li>
+                  Open your repository at <a href="https://github.com/elibelleza11/TALA-3-Term-Grade-Calculator" target="_blank" rel="noreferrer" className="text-indigo-600 dark:text-indigo-400 underline font-bold">github.com/elibelleza11/TALA-3-Term-Grade-Calculator</a>.
+                </li>
+                <li>
+                  Click <strong>"Add file" ➔ "Upload files"</strong>, drag and drop the extracted files (especially the <code>docs/</code> folder and <code>index.html</code>), and click <strong>"Commit changes"</strong>!
+                </li>
+              </ol>
+            </div>
+
+            <div className="bg-white/80 dark:bg-slate-900/80 p-3.5 rounded-xl border border-indigo-100 dark:border-indigo-900 space-y-2">
+              <span className="font-extrabold text-indigo-900 dark:text-indigo-200 block text-xs">
+                Option 2: Push via Command Line with Personal Access Token (PAT)
+              </span>
+              <p className="text-slate-600 dark:text-slate-300">
+                Because GitHub discontinued password authentication for git operations, generate a token at <a href="https://github.com/settings/tokens" target="_blank" rel="noreferrer" className="text-indigo-600 dark:text-indigo-400 underline">GitHub Settings ➔ Developer Settings ➔ Tokens</a> (with <code>repo</code> scope), then run:
+              </p>
+              <div className="p-2.5 bg-slate-900 text-emerald-400 font-mono text-[11px] rounded-lg overflow-x-auto">
+                git push https://&lt;YOUR_TOKEN&gt;@github.com/elibelleza11/TALA-3-Term-Grade-Calculator.git main --force
+              </div>
+              <p className="text-[11px] text-slate-500">
+                💡 Tip: If you prefer, you can also paste your GitHub Personal Access Token directly to me in the prompt and I will immediately push all commits directly to your GitHub repo on your behalf!
+              </p>
             </div>
           </div>
         </div>

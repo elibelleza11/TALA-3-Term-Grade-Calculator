@@ -88,6 +88,7 @@ import {
   Star,
   CheckCircle2,
   TrendingUp,
+  Download,
   Table,
   X
 } from 'lucide-react';
@@ -147,6 +148,29 @@ export default function App() {
 
   // Sound toggle state
   const [muted, setMuted] = useState<boolean>(() => isSoundMuted());
+  const [downloadingZip, setDownloadingZip] = useState<boolean>(false);
+
+  const handleDownloadZip = async () => {
+    try {
+      setDownloadingZip(true);
+      playPop();
+      const res = await fetch('/tala-updated-project.zip');
+      if (!res.ok) throw new Error('Download failed');
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'tala-updated-project.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => window.URL.revokeObjectURL(url), 1000);
+    } catch {
+      window.open('/tala-updated-project.zip', '_blank');
+    } finally {
+      setDownloadingZip(false);
+    }
+  };
 
   // Active Tool Tab
   const [activeTab, setActiveTab] = useState<'component' | 'gwa_honors' | 'goal_planner' | 'passing_score' | 'mapeh_quick' | 'transmutation_table'>('component');
@@ -622,6 +646,18 @@ export default function App() {
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span className="hidden md:inline">Reset</span>
+            </button>
+
+            {/* Direct ZIP Download */}
+            <button
+              type="button"
+              onClick={handleDownloadZip}
+              disabled={downloadingZip}
+              className="btn-3d p-1.5 sm:px-2.5 sm:py-1.5 text-xs font-bold bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white rounded-xl border-b-3 border-emerald-800 transition-colors flex items-center gap-1 shadow-2xs cursor-pointer select-none"
+              title="Download updated code & docs (.zip)"
+            >
+              <Download className="w-3.5 h-3.5 text-white" />
+              <span className="hidden md:inline">{downloadingZip ? 'Downloading...' : 'Download ZIP'}</span>
             </button>
 
             {/* GitHub Guide Modal */}
